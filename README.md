@@ -1,16 +1,5 @@
-# othello
+# Othello in Flutter
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+I implemented Othello in C# for Windows here: https://github.com/DevinDow/Othello.
+It can be played Human vs Human or Human vs Computer.  It has several Computer Levels.
+I'd like to port it over to Flutter and host it on my website.

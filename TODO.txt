@@ -1,0 +1,12 @@
+TODO
+----
+Draw Board
+- BoardPainter (see flutter-fitness: play_routine CustomPainter(MovePainter))
+
+Classes
+- Board
+- Square
+- Coord
+- BoardState
+
+ComputerPlayer
