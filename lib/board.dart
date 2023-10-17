@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:othello/board_painter.dart';
 
+import 'dart:developer' as dev;
+
 class Board extends StatefulWidget {
   const Board({super.key});
 
@@ -25,10 +27,18 @@ class _BoardState extends State<Board> {
           builder: (_, constraints) => SizedBox(
             width: constraints
                 .maxHeight, // make it a square based on Expanded's Height
-            child: CustomPaint(painter: BoardPainter()),
+            child: GestureDetector(
+              onTapDown: (details) => _onTapDown(details),
+              child: CustomPaint(painter: BoardPainter()),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  _onTapDown(TapDownDetails details) {
+    Offset pos = details.localPosition;
+    dev.log("Tapped at $pos", name: "Board");
   }
 }
