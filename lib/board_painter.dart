@@ -14,13 +14,24 @@ class BoardPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    // draw Board
+    double boardSize = size.width;
+    final boardPaint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0
       ..color = Colors.green;
+    canvas.drawRect(Rect.fromLTRB(0, 0, boardSize, boardSize), boardPaint);
 
-    //canvas.translate(size.width / 2, size.height); // Origin at floor-center
-    canvas.drawRect(Rect.fromLTRB(0, 0, size.width, size.height), paint);
+    // draw Grid
+    double sqaureSize = size.width / 8;
+    final gridPaint = Paint()
+      ..strokeWidth = 0.0
+      ..color = Colors.black;
+    for (int i = 1; i <= 7; i++) {
+      double offset = sqaureSize * i;
+      canvas.drawLine(Offset(0, offset), Offset(boardSize, offset), gridPaint);
+      canvas.drawLine(Offset(offset, 0), Offset(offset, boardSize), gridPaint);
+    }
   }
 
   @override
