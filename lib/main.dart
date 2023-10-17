@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:othello/board_painter.dart';
+import 'package:othello/board.dart';
 
 void main() {
   runApp(const OthelloApp());
@@ -57,23 +57,7 @@ class _GameState extends State<Game> {
             children: <Widget>[
               Text('Black = , White = ',
                   style: Theme.of(context).textTheme.headlineMedium),
-
-              // Canvas
-              // - let it expand as tall as Column allows, then make Width the same so it's a square
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent)),
-                  child: LayoutBuilder(
-                    builder: (_, constraints) => SizedBox(
-                      width: constraints
-                          .maxHeight, // make it a square based on Expanded's Height
-                      child: CustomPaint(painter: BoardPainter()),
-                    ),
-                  ),
-                ),
-              ),
-
+              const Board(),
               Text("Black's Turn",
                   style: Theme.of(context).textTheme.headlineMedium),
             ],

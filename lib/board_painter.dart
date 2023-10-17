@@ -1,15 +1,8 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
 
 import 'dart:developer' as dev;
 
 class BoardPainter extends CustomPainter {
-  // Fields
-
-  // Constants
-
-  // Constructor
   BoardPainter();
 
   @override
