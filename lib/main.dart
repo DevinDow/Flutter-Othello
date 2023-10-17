@@ -17,13 +17,13 @@ class OthelloApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const Game(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Game extends StatefulWidget {
+  const Game({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -35,10 +35,10 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Game> createState() => _GameState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called.
