@@ -9,7 +9,7 @@ Classes
     Empty, Black, White
 - Coord
     (1-8, 1-8)
-- BoardState
+- Situation
     Squares[,]
 
 ComputerPlayer
