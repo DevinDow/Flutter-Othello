@@ -10,7 +10,10 @@ Classes
 - Coord
     (1-8, 1-8)
 - Situation
-    Squares[,]
+    BlackCount, WhiteCount, EmptyCount
+    Clone()
+    GetSquare(), SetSquare()
+    LegalMoves(), etc
 
 ComputerPlayer
 

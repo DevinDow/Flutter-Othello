@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:othello/situation.dart';
 import 'package:othello/board_painter.dart';
 
 import 'dart:developer' as dev;
@@ -11,8 +13,11 @@ class Board extends StatefulWidget {
 }
 
 class _BoardState extends State<Board> {
+  Situation situation = Situation();
+
   @override
   Widget build(BuildContext context) {
+    dev.log("situation = $situation", name: "Board");
     // This method is rerun every time setState is called.
     //
     // The Flutter framework has been optimized to make rerunning build methods
