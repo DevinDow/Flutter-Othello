@@ -1,5 +1,9 @@
 TODO
 ----
+UI
+- Click
+- New Game
+
 Classes
 - Game
     Players
@@ -10,7 +14,6 @@ Classes
 - Coord
     (1-8, 1-8)
 - Situation
-    BlackCount, WhiteCount, EmptyCount
     Clone()
     GetSquare(), SetSquare()
     LegalMoves(), etc
