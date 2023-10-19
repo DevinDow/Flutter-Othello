@@ -27,7 +27,7 @@ class _BoardState extends State<Board> {
     return Expanded(
       // let it expand as tall as Column allows, then make Width the same so it's a square
       child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: LayoutBuilder(
           builder: (_, constraints) => SizedBox(
             width: constraints
