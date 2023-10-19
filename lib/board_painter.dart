@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:othello/situation.dart';
+
 import 'dart:developer' as dev;
 
 class BoardPainter extends CustomPainter {
-  BoardPainter();
+  late final Situation situation;
+
+  BoardPainter({required this.situation});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -36,12 +40,21 @@ class BoardPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0
       ..color = Colors.white;
-    canvas.drawCircle(
-        Offset(squareSize / 2, squareSize / 2), pieceRadius, blackPaint);
-    canvas.drawCircle(
-        Offset(squareSize + squareSize / 2, squareSize + squareSize / 2),
-        pieceRadius,
-        whitePaint);
+
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; x < 8; x++) {
+        SquareState squareState = situation.squares[x][y];
+        if (squareState == SquareState.empty) {
+          continue;
+        }
+
+        double xOffset = x * squareSize + squareSize / 2;
+        double yOffset = y * squareSize + squareSize / 2;
+        Paint paint =
+            squareState == SquareState.black ? blackPaint : whitePaint;
+        canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+      }
+    }
   }
 
   @override

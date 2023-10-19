@@ -34,7 +34,7 @@ class _BoardState extends State<Board> {
                 .maxHeight, // make it a square based on Expanded's Height
             child: GestureDetector(
               onTapDown: (details) => _onTapDown(details),
-              child: CustomPaint(painter: BoardPainter()),
+              child: CustomPaint(painter: BoardPainter(situation: situation)),
             ),
           ),
         ),
