@@ -5,14 +5,21 @@ import 'package:othello/situation.dart';
 import 'dart:developer' as dev;
 
 class BoardPainter extends CustomPainter {
+  static double boardSize = 0;
+  static double get squareSize => boardSize / 8;
+  static double get pieceRadius => 0.4 * squareSize;
+
+  // Fields
   late final Situation situation;
 
+  // Constructor
   BoardPainter({required this.situation});
 
+  // Overrides
   @override
   void paint(Canvas canvas, Size size) {
     // draw Board
-    double boardSize = size.width;
+    boardSize = size.width;
     final boardPaint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0
@@ -20,7 +27,6 @@ class BoardPainter extends CustomPainter {
     canvas.drawRect(Rect.fromLTRB(0, 0, boardSize, boardSize), boardPaint);
 
     // draw Grid
-    double squareSize = size.width / 8;
     final gridPaint = Paint()
       ..strokeWidth = 0.0
       ..color = Colors.black;
@@ -31,7 +37,6 @@ class BoardPainter extends CustomPainter {
     }
 
     // draw Pieces
-    double pieceRadius = 0.4 * squareSize;
     final blackPaint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0

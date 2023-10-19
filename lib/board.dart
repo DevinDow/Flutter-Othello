@@ -45,5 +45,8 @@ class _BoardState extends State<Board> {
   _onTapDown(TapDownDetails details) {
     Offset pos = details.localPosition;
     dev.log("Tapped at $pos", name: "Board");
+    int x = (pos.dx / BoardPainter.squareSize).floor();
+    int y = (pos.dy / BoardPainter.squareSize).floor();
+    dev.log("Tapped at coord ($x, $y)", name: "Board");
   }
 }
