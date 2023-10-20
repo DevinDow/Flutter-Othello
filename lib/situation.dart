@@ -64,6 +64,75 @@ class Situation {
     return n;
   }
 
+  bool isLegalMove(Coord coord) {
+    SquareState state = getCoord(coord);
+
+    if (state == SquareState.black || state == SquareState.white) {
+      return false;
+    }
+
+    if (isSuccessfulDirection(coord, -1, 0)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, -1, 1)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, 0, 1)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, 1, 1)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, 1, 0)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, 1, -1)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, 0, -1)) {
+      return true;
+    }
+    if (isSuccessfulDirection(coord, -1, -1)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool isSuccessfulDirection(Coord coord, int dx, int dy) {
+    bool foundOpposite = false;
+
+    int x = coord.x + dx;
+    int y = coord.y + dy;
+
+    while (x > 0 && x <= 8 && y > 0 && y <= 8) {
+      SquareState state = getCoord(Coord(x, y));
+
+      if (state == SquareState.empty) {
+        return false;
+      }
+
+      if (foundOpposite) {
+        if (state == SquareState.white && whitesTurn ||
+            state == SquareState.black && !whitesTurn) {
+          return true;
+        }
+      } else {
+        if (state == SquareState.white && !whitesTurn ||
+            state == SquareState.black && whitesTurn) {
+          foundOpposite = true;
+        } else {
+          return false;
+        }
+      }
+
+      x += dx;
+      y += dy;
+    }
+
+    return false;
+  }
+
   void placePieceAndFlipPiecesAndChangeTurns(Coord coord) {
     // place Piece at coord
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);

@@ -47,6 +47,10 @@ class _BoardState extends State<Board> {
     int y = (pos.dy / BoardPainter.squareSize).floor();
     Coord coord = Coord(x + 1, y + 1);
     dev.log("Tapped at coord $coord", name: "Board");
+    if (!widget.situation.isLegalMove(coord)) {
+      dev.log("Not a Legal Move!", name: "Board");
+      return;
+    }
     setState(() {
       widget.situation.placePieceAndFlipPiecesAndChangeTurns(coord);
 
