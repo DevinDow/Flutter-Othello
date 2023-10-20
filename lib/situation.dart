@@ -182,13 +182,13 @@ class Situation {
     // change Turns
     skippedTurn = false;
     whitesTurn = !whitesTurn;
-    /*if (!IsLegalMoveAvailable())
-    {
-        skippedTurn = true;
-        WhitesTurn = !WhitesTurn;
-        if (!IsLegalMoveAvailable())
-            endOfGame = true;
-    }*/
+    if (!isLegalMoveAvailable()) {
+      skippedTurn = true;
+      whitesTurn = !whitesTurn;
+      if (!isLegalMoveAvailable()) {
+        endOfGame = true;
+      }
+    }
   }
 
   void flipInDirection(Coord choice, int dx, int dy) {
