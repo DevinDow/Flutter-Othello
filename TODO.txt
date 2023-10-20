@@ -1,18 +1,11 @@
 TODO
 ----
 UI
-- Click
 - New Game
 
 Classes
 - Game
     Players
-- Board
-    BoardState
-- Square
-    Empty, Black, White
-- Coord
-    (1-8, 1-8)
 - Situation
     Clone()
     GetSquare(), SetSquare()
