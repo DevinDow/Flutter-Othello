@@ -1,5 +1,7 @@
 TODO
 ----
+Tests
+
 UI
 - New Game
 
@@ -8,7 +10,6 @@ Classes
     Players
 - Situation
     Clone()
-    GetSquare(), SetSquare()
     LegalMoves(), etc
 
 ComputerPlayer

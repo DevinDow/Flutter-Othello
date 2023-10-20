@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/board_painter.dart';
 
@@ -44,7 +45,8 @@ class _BoardState extends State<Board> {
     dev.log("Tapped at $pos", name: "Board");
     int x = (pos.dx / BoardPainter.squareSize).floor();
     int y = (pos.dy / BoardPainter.squareSize).floor();
-    dev.log("Tapped at coord ($x, $y)", name: "Board");
+    Coord coord = Coord(x + 1, y + 1);
+    dev.log("Tapped at coord $coord", name: "Board");
     setState(() {
       widget.situation.squares[x][y] =
           widget.situation.whitesTurn ? SquareState.white : SquareState.black;

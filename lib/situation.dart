@@ -1,3 +1,5 @@
+import 'package:othello/coord.dart';
+
 enum SquareState { empty, black, white }
 
 /// Situation is the grid of Pieces and who's Turn
@@ -21,10 +23,10 @@ class Situation {
   // Constructor
   Situation({this.whitesTurn = false, setInitialPieces = true}) {
     if (setInitialPieces) {
-      squares[3][3] = SquareState.black;
-      squares[4][3] = SquareState.white;
-      squares[3][4] = SquareState.white;
-      squares[4][4] = SquareState.black;
+      setCoord(Coord(4, 4), SquareState.black);
+      setCoord(Coord(5, 4), SquareState.white);
+      setCoord(Coord(4, 5), SquareState.white);
+      setCoord(Coord(5, 5), SquareState.black);
     }
   }
 
@@ -42,6 +44,14 @@ class Situation {
   }
 
   // Methods
+  SquareState getCoord(Coord coord) {
+    return squares[coord.x - 1][coord.y - 1];
+  }
+
+  void setCoord(Coord coord, SquareState state) {
+    squares[coord.x - 1][coord.y - 1] = state;
+  }
+
   int getCountOfState(SquareState state) {
     int n = 0;
     for (int y = 0; y < 8; y++) {
