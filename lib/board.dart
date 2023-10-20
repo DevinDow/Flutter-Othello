@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:othello/situation.dart';
@@ -6,18 +8,18 @@ import 'package:othello/board_painter.dart';
 import 'dart:developer' as dev;
 
 class Board extends StatefulWidget {
-  const Board({super.key});
+  const Board({super.key, required this.situation});
+
+  final Situation situation;
 
   @override
   State<Board> createState() => _BoardState();
 }
 
 class _BoardState extends State<Board> {
-  Situation situation = Situation();
-
   @override
   Widget build(BuildContext context) {
-    dev.log("situation = $situation", name: "Board");
+    dev.log("situation = ${widget.situation}", name: "Board");
     // This method is rerun every time setState is called.
     //
     // The Flutter framework has been optimized to make rerunning build methods
@@ -34,7 +36,8 @@ class _BoardState extends State<Board> {
                 .maxHeight, // make it a square based on Expanded's Height
             child: GestureDetector(
               onTapDown: (details) => _onTapDown(details),
-              child: CustomPaint(painter: BoardPainter(situation: situation)),
+              child: CustomPaint(
+                  painter: BoardPainter(situation: widget.situation)),
             ),
           ),
         ),
@@ -48,5 +51,9 @@ class _BoardState extends State<Board> {
     int x = (pos.dx / BoardPainter.squareSize).floor();
     int y = (pos.dy / BoardPainter.squareSize).floor();
     dev.log("Tapped at coord ($x, $y)", name: "Board");
+    setState(() {
+      widget.situation.squares[x][y] =
+          widget.situation.whitesTurn ? SquareState.white : SquareState.black;
+    });
   }
 }

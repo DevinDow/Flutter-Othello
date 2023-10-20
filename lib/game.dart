@@ -32,7 +32,7 @@ class _GameState extends State<Game> {
               Text(
                   'Black = ${situation.blackCount}, White = ${situation.whiteCount}',
                   style: Theme.of(context).textTheme.headlineMedium),
-              const Board(),
+              Board(situation: situation),
               Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
                   style: Theme.of(context).textTheme.headlineMedium),
             ],
