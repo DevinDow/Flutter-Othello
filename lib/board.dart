@@ -48,9 +48,7 @@ class _BoardState extends State<Board> {
     Coord coord = Coord(x + 1, y + 1);
     dev.log("Tapped at coord $coord", name: "Board");
     setState(() {
-      widget.situation.squares[x][y] =
-          widget.situation.whitesTurn ? SquareState.white : SquareState.black;
-      widget.situation.whitesTurn = !widget.situation.whitesTurn;
+      widget.situation.placePieceAndFlipPiecesAndChangeTurns(coord);
 
       // callback to update Game's Situation
       widget.updateGame(widget.situation);

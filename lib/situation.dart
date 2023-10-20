@@ -64,6 +64,69 @@ class Situation {
     return n;
   }
 
+  void placePieceAndFlipPiecesAndChangeTurns(Coord coord) {
+    // place Piece at coord
+    setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
+
+    // flip all affected Pieces
+    //coordsFlipped = new List<Coord>();
+    flipInDirection(coord, 0, -1);
+    flipInDirection(coord, -1, -1);
+    flipInDirection(coord, -1, 0);
+    flipInDirection(coord, -1, 1);
+    flipInDirection(coord, 0, 1);
+    flipInDirection(coord, 1, 1);
+    flipInDirection(coord, 1, 0);
+    flipInDirection(coord, 1, -1);
+
+    // change Turns
+    skippedTurn = false;
+    whitesTurn = !whitesTurn;
+    /*if (!IsLegalMoveAvailable())
+    {
+        skippedTurn = true;
+        WhitesTurn = !WhitesTurn;
+        if (!IsLegalMoveAvailable())
+            endOfGame = true;
+    }*/
+  }
+
+  void flipInDirection(Coord choice, int dx, int dy) {
+    int x = choice.x + dx;
+    int y = choice.y + dy;
+
+    // find partner piece
+    while (x >= 1 && x <= 8 && y >= 1 && y <= 8) {
+      SquareState partnerState = getCoord(Coord(x, y));
+      if (partnerState == SquareState.empty) return;
+
+      // if not a partner piece
+      if (whitesTurn && partnerState == SquareState.black ||
+          !whitesTurn && partnerState == SquareState.white) {
+        x += dx;
+        y += dy;
+        continue; // keep looking for partner piece
+      }
+
+      // partner piece found
+      x -= dx;
+      y -= dy;
+
+      // work back to placed piece flipping
+      while (!(x == choice.x && y == choice.y)) {
+        Coord coordToFlip = Coord(x, y);
+        //coordsFlipped.Add(coordToFlip);
+        setCoord(
+            coordToFlip, whitesTurn ? SquareState.white : SquareState.black);
+
+        x -= dx;
+        y -= dy;
+      }
+
+      return;
+    }
+  }
+
   // Overrides
   @override
   String toString() {
