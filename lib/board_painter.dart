@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othello/coord.dart';
 
 import 'package:othello/situation.dart';
 
@@ -6,6 +7,7 @@ class BoardPainter extends CustomPainter {
   static double boardSize = 0;
   static double get squareSize => boardSize / 8;
   static double get pieceRadius => 0.4 * squareSize;
+  static double get legalMoveRadius => 0.2 * squareSize;
 
   // Fields
   late final Situation situation;
@@ -59,6 +61,18 @@ class BoardPainter extends CustomPainter {
             squareState == SquareState.black ? blackPaint : whitePaint;
         canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
       }
+    }
+
+    // draw Legal Moves
+    final legalMovePaint = Paint()
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 0.0
+      ..color = Colors.red;
+    for (Coord coord in situation.legalMoves) {
+      double xOffset = (coord.x - 1) * squareSize + squareSize / 2;
+      double yOffset = (coord.y - 1) * squareSize + squareSize / 2;
+      canvas.drawCircle(
+          Offset(xOffset, yOffset), legalMoveRadius, legalMovePaint);
     }
   }
 

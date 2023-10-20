@@ -81,7 +81,9 @@ class _GameState extends State<Game> {
   }
 
   void showLegalMoves() {
-    setState(() {});
+    setState(() {
+      situation.findLegalMoves();
+    });
   }
 
   void computer() {}

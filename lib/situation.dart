@@ -16,6 +16,8 @@ class Situation {
       (x) => List<SquareState>.filled(8, SquareState.empty),
       growable: false);
 
+  List<Coord> legalMoves = List.empty();
+
   bool whitesTurn = false;
   bool skippedTurn = false;
   bool endOfGame = false;
@@ -65,8 +67,8 @@ class Situation {
   }
 
   /// finds all legal Moves
-  List<Coord> legalMoves() {
-    List<Coord> legalMoves = List<Coord>.empty(growable: true);
+  void findLegalMoves() {
+    legalMoves = List<Coord>.empty(growable: true);
 
     for (int y = 1; y <= 8; y++) {
       // loop rows
@@ -78,7 +80,6 @@ class Situation {
         }
       }
     }
-    return legalMoves;
   }
 
   bool isLegalMoveAvailable() {
@@ -165,6 +166,9 @@ class Situation {
   }
 
   void placePieceAndFlipPiecesAndChangeTurns(Coord coord) {
+    assert(isLegalMove(coord));
+    legalMoves = List.empty();
+
     // place Piece at coord
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
 
@@ -234,7 +238,7 @@ class Situation {
     if (endOfGame) {
       s += " *** END OF GAME *** \n";
     } else {
-      s += "Turn=${whitesTurn ? "W" : "B"}\n";
+      s += "Turn=${whitesTurn ? "White" : "Black"}\n";
     }
 
     for (int y = 0; y < 8; y++) {
@@ -255,6 +259,11 @@ class Situation {
       s += '\n';
     }
     s += 'Black=$blackCount, White=$whiteCount';
+
+    if (legalMoves.isNotEmpty) {
+      s += "\nLegal Moves=$legalMoves";
+    }
+
     return s;
   }
 }

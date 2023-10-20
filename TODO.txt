@@ -6,8 +6,6 @@ UI
 - New Game
 
 Classes
-- Game
-    ComputerPlayers
 - Situation
     Clone() for Undo & ComputerPlayer
 
