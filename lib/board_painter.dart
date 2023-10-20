@@ -24,10 +24,12 @@ class BoardPainter extends CustomPainter {
       ..color = Colors.green;
     canvas.drawRect(Rect.fromLTRB(0, 0, boardSize, boardSize), boardPaint);
 
-    // draw Grid
+    // draw Border & Grid
     final gridPaint = Paint()
+      ..style = PaintingStyle.stroke
       ..strokeWidth = 0.0
       ..color = Colors.black;
+    canvas.drawRect(Rect.fromLTRB(0, 0, boardSize, boardSize), gridPaint);
     for (int i = 1; i <= 7; i++) {
       double offset = squareSize * i;
       canvas.drawLine(Offset(0, offset), Offset(boardSize, offset), gridPaint);
