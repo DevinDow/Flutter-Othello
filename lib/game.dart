@@ -30,14 +30,31 @@ class _GameState extends State<Game> {
               Board(situation: situation, updateGame: updateSituation),
               Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
                   style: Theme.of(context).textTheme.headlineMedium),
+              // Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: undo,
+                    child: const Icon(Icons.undo),
+                  ),
+                  ElevatedButton(
+                    onPressed: showLegalMoves,
+                    child: const Icon(Icons.location_on),
+                  ),
+                  ElevatedButton(
+                    onPressed: computer,
+                    child: const Icon(Icons.computer),
+                  ),
+                  ElevatedButton(
+                    onPressed: newGame,
+                    child: const Icon(Icons.restart_alt),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: newGame,
-        tooltip: 'New Game',
-        child: const Icon(Icons.restart_alt),
       ),
     );
   }
@@ -48,6 +65,18 @@ class _GameState extends State<Game> {
       this.situation = situation;
     });
   }
+
+  void undo() {
+    setState(() {
+      situation = Situation();
+    });
+  }
+
+  void showLegalMoves() {
+    setState(() {});
+  }
+
+  void computer() {}
 
   void newGame() {
     setState(() {
