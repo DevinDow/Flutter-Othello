@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:othello/situation.dart';
 
-import 'dart:developer' as dev;
-
 class BoardPainter extends CustomPainter {
   static double boardSize = 0;
   static double get squareSize => boardSize / 8;

@@ -1,5 +1,3 @@
-import 'dart:developer' as dev;
-
 enum SquareState { empty, black, white }
 
 /// Situation is the grid of Pieces and who's Turn
