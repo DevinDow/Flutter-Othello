@@ -1,5 +1,7 @@
 TODO
 ----
+- AlertDialog for Illegal Move
+
 Tests
 
 UI
@@ -8,10 +10,6 @@ UI
 Classes
 - Situation
     Clone() for Undo & ComputerPlayer
-
-Show LegalMoves
-- UI
-- state & drawing
 
 ComputerPlayer
 
