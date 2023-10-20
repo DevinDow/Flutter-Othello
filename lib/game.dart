@@ -34,6 +34,11 @@ class _GameState extends State<Game> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: newGame,
+        tooltip: 'New Game',
+        child: const Icon(Icons.restart_alt),
+      ),
     );
   }
 
@@ -41,6 +46,12 @@ class _GameState extends State<Game> {
   void updateSituation(Situation situation) {
     setState(() {
       this.situation = situation;
+    });
+  }
+
+  void newGame() {
+    setState(() {
+      situation = Situation();
     });
   }
 }

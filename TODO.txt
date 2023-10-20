@@ -7,10 +7,13 @@ UI
 
 Classes
 - Game
-    Players
+    ComputerPlayers
 - Situation
-    Clone()
-    LegalMoves(), etc
+    Clone() for Undo & ComputerPlayer
+
+Show LegalMoves
+- UI
+- state & drawing
 
 ComputerPlayer
 
