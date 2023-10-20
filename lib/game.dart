@@ -35,21 +35,29 @@ class _GameState extends State<Game> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: undo,
-                    child: const Icon(Icons.undo),
-                  ),
+                      onPressed: undo,
+                      child: const Column(children: [
+                        Icon(Icons.undo),
+                        Text("Undo"),
+                      ])),
                   ElevatedButton(
-                    onPressed: showLegalMoves,
-                    child: const Icon(Icons.location_on),
-                  ),
+                      onPressed: showLegalMoves,
+                      child: const Column(children: [
+                        Icon(Icons.location_on),
+                        Text("Legal Moves"),
+                      ])),
                   ElevatedButton(
-                    onPressed: computer,
-                    child: const Icon(Icons.computer),
-                  ),
+                      onPressed: computer,
+                      child: const Column(children: [
+                        Icon(Icons.computer),
+                        Text("Computer"),
+                      ])),
                   ElevatedButton(
-                    onPressed: newGame,
-                    child: const Icon(Icons.restart_alt),
-                  ),
+                      onPressed: newGame,
+                      child: const Column(children: [
+                        Icon(Icons.restart_alt),
+                        Text("New Game"),
+                      ])),
                 ],
               ),
             ],
