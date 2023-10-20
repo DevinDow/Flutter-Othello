@@ -64,6 +64,37 @@ class Situation {
     return n;
   }
 
+  /// finds all legal Moves
+  List<Coord> legalMoves() {
+    List<Coord> legalMoves = List<Coord>.empty(growable: true);
+
+    for (int y = 1; y <= 8; y++) {
+      // loop rows
+      for (int x = 1; x <= 8; x++) {
+        // loop columns
+        Coord coord = Coord(x, y);
+        if (isLegalMove(coord)) {
+          legalMoves.add(coord);
+        }
+      }
+    }
+    return legalMoves;
+  }
+
+  bool isLegalMoveAvailable() {
+    for (int y = 1; y <= 8; y++) {
+      // loop rows
+      for (int x = 1; x <= 8; x++) {
+        // loop columns
+        Coord coord = Coord(x, y);
+        if (isLegalMove(coord)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   bool isLegalMove(Coord coord) {
     SquareState state = getCoord(coord);
 
