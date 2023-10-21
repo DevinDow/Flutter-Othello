@@ -4,13 +4,6 @@ TODO
 
 Tests
 
-UI
-- New Game
-
-Classes
-- Situation
-    Clone() for Undo & ComputerPlayer
-
 ComputerPlayer
 
 Animation
