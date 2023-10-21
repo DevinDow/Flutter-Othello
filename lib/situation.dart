@@ -70,10 +70,17 @@ class Situation {
     Situation cloned =
         Situation(whitesTurn: whitesTurn, setInitialPieces: false);
 
+    // copy squares
     for (int y = 0; y < 8; y++) {
       for (int x = 0; x < 8; x++) {
         cloned.squares[x][y] = squares[x][y];
       }
+    }
+
+    // copy legalMoves
+    cloned.legalMoves = List<Coord>.empty(growable: true);
+    for (Coord legalMove in legalMoves) {
+      cloned.legalMoves.add(Coord(legalMove.x, legalMove.y));
     }
 
     return cloned;

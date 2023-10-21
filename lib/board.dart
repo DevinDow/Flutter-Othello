@@ -6,20 +6,16 @@ import 'package:othello/board_painter.dart';
 
 import 'dart:developer' as dev;
 
-class Board extends StatefulWidget {
-  const Board({super.key, required this.situation, required this.updateGame});
+class Board extends StatelessWidget {
+  const Board(
+      {super.key, required this.situation, required this.makeMoveCallback});
 
   final Situation situation;
-  final Function updateGame;
+  final Function makeMoveCallback;
 
-  @override
-  State<Board> createState() => _BoardState();
-}
-
-class _BoardState extends State<Board> {
   @override
   Widget build(BuildContext context) {
-    dev.log("situation = ${widget.situation}", name: "Board");
+    dev.log("situation = $situation", name: "Board");
 
     return Expanded(
       // let it expand as tall as Column allows, then make Width the same so it's a square
@@ -29,8 +25,7 @@ class _BoardState extends State<Board> {
               .maxHeight, // make it a square based on Expanded's Height
           child: GestureDetector(
             onTapDown: (details) => _onTapDown(details),
-            child:
-                CustomPaint(painter: BoardPainter(situation: widget.situation)),
+            child: CustomPaint(painter: BoardPainter(situation: situation)),
           ),
         ),
       ),
@@ -44,15 +39,11 @@ class _BoardState extends State<Board> {
     int y = (pos.dy / BoardPainter.squareSize).floor();
     Coord coord = Coord(x + 1, y + 1);
     dev.log("Tapped at coord $coord", name: "Board");
-    if (!widget.situation.isLegalMove(coord)) {
+    if (!situation.isLegalMove(coord)) {
       dev.log("Not a Legal Move!", name: "Board");
       return;
     }
-    setState(() {
-      widget.situation.placePieceAndFlipPiecesAndChangeTurns(coord);
 
-      // callback to update Game's Situation
-      widget.updateGame(widget.situation);
-    });
+    makeMoveCallback(coord);
   }
 }

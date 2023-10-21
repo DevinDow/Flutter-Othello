@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:othello/board.dart';
+import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
+
+import 'dart:developer' as dev;
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -21,7 +24,6 @@ class _GameState extends State<Game> {
   void initGame() {
     situation = Situation();
     previousSituations = List.empty(growable: true);
-    previousSituations.add(situation.clone());
   }
 
   @override
@@ -41,7 +43,7 @@ class _GameState extends State<Game> {
                   style: Theme.of(context).textTheme.headlineMedium),
 
               // Board
-              Board(situation: situation, updateGame: updateSituation),
+              Board(situation: situation, makeMoveCallback: makeMove),
 
               // Turn
               Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
@@ -84,11 +86,11 @@ class _GameState extends State<Game> {
     );
   }
 
-  /// this callback is passed to Board for updating situation
-  void updateSituation(Situation situation) {
+  void makeMove(Coord coord) {
     setState(() {
-      this.situation = situation;
       previousSituations.add(situation.clone());
+      situation.placePieceAndFlipPiecesAndChangeTurns(coord);
+      dev.log(situation.toString(), name: "new situation");
     });
   }
 
@@ -102,7 +104,11 @@ class _GameState extends State<Game> {
 
   void showLegalMoves() {
     setState(() {
-      situation.findLegalMoves();
+      if (situation.legalMoves.isEmpty) {
+        situation.findLegalMoves();
+      } else {
+        situation.legalMoves = List.empty();
+      }
     });
   }
 
