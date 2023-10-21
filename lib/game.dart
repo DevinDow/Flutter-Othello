@@ -54,7 +54,7 @@ class _GameState extends State<Game> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                      onPressed: undo,
+                      onPressed: previousSituations.isEmpty ? null : undo,
                       child: const Column(children: [
                         Icon(Icons.undo),
                         Text("Undo"),
@@ -65,9 +65,9 @@ class _GameState extends State<Game> {
                         Icon(Icons.location_on),
                         Text("Legal Moves"),
                       ])),
-                  ElevatedButton(
-                      onPressed: computer,
-                      child: const Column(children: [
+                  const ElevatedButton(
+                      onPressed: null, //computer,
+                      child: Column(children: [
                         Icon(Icons.computer),
                         Text("Computer"),
                       ])),
