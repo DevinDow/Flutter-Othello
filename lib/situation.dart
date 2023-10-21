@@ -66,6 +66,19 @@ class Situation {
     return n;
   }
 
+  Situation clone() {
+    Situation cloned =
+        Situation(whitesTurn: whitesTurn, setInitialPieces: false);
+
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; x < 8; x++) {
+        cloned.squares[x][y] = squares[x][y];
+      }
+    }
+
+    return cloned;
+  }
+
   /// finds all legal Moves
   void findLegalMoves() {
     legalMoves = List<Coord>.empty(growable: true);
