@@ -11,7 +11,18 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  Situation situation = Situation();
+  late Situation situation;
+  late List<Situation> previousSituations;
+
+  _GameState() {
+    initGame();
+  }
+
+  void initGame() {
+    situation = Situation();
+    previousSituations = List.empty(growable: true);
+    previousSituations.add(situation.clone());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +35,18 @@ class _GameState extends State<Game> {
         child: Center(
           child: Column(
             children: <Widget>[
+              // Score
               Text(
                   'Black = ${situation.blackCount}, White = ${situation.whiteCount}',
                   style: Theme.of(context).textTheme.headlineMedium),
+
+              // Board
               Board(situation: situation, updateGame: updateSituation),
+
+              // Turn
               Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
                   style: Theme.of(context).textTheme.headlineMedium),
+
               // Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,12 +88,15 @@ class _GameState extends State<Game> {
   void updateSituation(Situation situation) {
     setState(() {
       this.situation = situation;
+      previousSituations.add(situation.clone());
     });
   }
 
   void undo() {
     setState(() {
-      situation = Situation();
+      if (previousSituations.isNotEmpty) {
+        situation = previousSituations.removeLast();
+      }
     });
   }
 
@@ -90,7 +110,7 @@ class _GameState extends State<Game> {
 
   void newGame() {
     setState(() {
-      situation = Situation();
+      initGame();
     });
   }
 }
