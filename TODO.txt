@@ -1,10 +1,5 @@
 TODO
 ----
-AlertDialog for
-- Illegal Move
-- Skipped Turn
-- End of Game
-
 Publish to DevinDow.com
 
 Tests

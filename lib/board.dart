@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/board_painter.dart';
+import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
 
@@ -24,7 +25,7 @@ class Board extends StatelessWidget {
           width: constraints
               .maxHeight, // make it a square based on Expanded's Height
           child: GestureDetector(
-            onTapDown: (details) => _onTapDown(details),
+            onTapDown: (details) => _onTapDown(details, context),
             child: CustomPaint(painter: BoardPainter(situation: situation)),
           ),
         ),
@@ -32,18 +33,29 @@ class Board extends StatelessWidget {
     );
   }
 
-  _onTapDown(TapDownDetails details) {
+  _onTapDown(TapDownDetails details, BuildContext context) {
+    if (situation.endOfGame) {
+      Alert(context, "Game Over", "press New Game to play again");
+      return;
+    }
+
     Offset pos = details.localPosition;
     dev.log("Tapped at $pos", name: "Board");
+
+    // calculate Coord
     int x = (pos.dx / BoardPainter.squareSize).floor();
     int y = (pos.dy / BoardPainter.squareSize).floor();
     Coord coord = Coord(x + 1, y + 1);
     dev.log("Tapped at coord $coord", name: "Board");
+
+    // not a Legal Move
     if (!situation.isLegalMove(coord)) {
       dev.log("Not a Legal Move!", name: "Board");
+      Alert(context, "Not a Legal Move!", "Try again");
       return;
     }
 
+    // make Move
     makeMoveCallback(coord);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
+import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
 
@@ -91,6 +92,28 @@ class _GameState extends State<Game> {
       previousSituations.add(situation.clone());
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
       dev.log(situation.toString(), name: "new situation");
+
+      // Game Over
+      if (situation.endOfGame) {
+        dev.log("End of Game", name: "Game");
+        int blackCount = situation.blackCount;
+        int whiteCount = situation.whiteCount;
+        String message;
+        if (blackCount > whiteCount) {
+          message = "Black won $blackCount - $whiteCount";
+        } else if (whiteCount > blackCount) {
+          message = "White won $whiteCount - $blackCount";
+        } else {
+          message = "Tie $blackCount - $whiteCount";
+        }
+        Alert(context, "Game Over", message);
+      }
+
+      // Skipped Turn
+      else if (situation.skippedTurn) {
+        dev.log("Skipped Turn", name: "Game");
+        Alert(context, "Skipped Turn", "There were no Legal Moves available.");
+      }
     });
   }
 
