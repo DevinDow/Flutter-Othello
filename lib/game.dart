@@ -156,11 +156,13 @@ class _GameState extends State<Game> {
 
       switch (key) {
         case "F1":
+        case "L":
           showLegalMoves();
-          break;
+          return true;
         case "Backspace":
+        case "U":
           undo();
-          break;
+          return true;
       }
     }
 
