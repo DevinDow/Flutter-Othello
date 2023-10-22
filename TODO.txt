@@ -1,6 +1,5 @@
 TODO
 ----
-Publish to DevinDow.com
 
 Tests
 

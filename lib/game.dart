@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
@@ -25,6 +26,12 @@ class _GameState extends State<Game> {
   void initGame() {
     situation = Situation();
     previousSituations = List.empty(growable: true);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ServicesBinding.instance.keyboard.addHandler(_onKeyEvent);
   }
 
   @override
@@ -141,5 +148,22 @@ class _GameState extends State<Game> {
     setState(() {
       initGame();
     });
+  }
+
+  bool _onKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      final key = event.logicalKey.keyLabel;
+
+      switch (key) {
+        case "F1":
+          showLegalMoves();
+          break;
+        case "Backspace":
+          undo();
+          break;
+      }
+    }
+
+    return false;
   }
 }
