@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:othello/coord.dart';
 
+import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 
 class BoardPainter extends CustomPainter {

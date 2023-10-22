@@ -6,3 +6,5 @@ Tests
 ComputerPlayer
 
 Animation
+- https://blog.codemagic.io/flutter-custom-painter/
+    - https://github.com/sbis04/custom_painter/blob/master/animate_polygons/lib/main.dart
