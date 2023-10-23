@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
+import 'package:othello/ComputerPlayer/computer_player.dart';
+import 'package:othello/ComputerPlayer/computer_player_intermediate.dart';
 import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
@@ -19,15 +21,19 @@ class _GameState extends State<Game> {
   late Situation situation;
   late List<Situation> previousSituations;
 
+  ComputerPlayer computer = ComputerPlayerIntermediate(true);
+
   _GameState() {
     initGame();
   }
 
+  /// reset to starting Game State
   void initGame() {
     situation = Situation();
     previousSituations = List.empty(growable: true);
   }
 
+  /// for handling Keyboard
   @override
   void initState() {
     super.initState();
@@ -122,6 +128,13 @@ class _GameState extends State<Game> {
         Alert(context, "Skipped Turn", "There were no Legal Moves available.");
       }
     });
+
+    if (computer.amIWhite ^ !situation.whitesTurn) {
+      Coord? computerChoice = computer.chooseNextMove(situation);
+      if (computerChoice != null) {
+        makeMove(computerChoice);
+      }
+    }
   }
 
   void undo() {
@@ -142,7 +155,7 @@ class _GameState extends State<Game> {
     });
   }
 
-  void computer() {}
+  void opponent() {}
 
   void newGame() {
     setState(() {
