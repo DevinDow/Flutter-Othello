@@ -26,7 +26,8 @@ abstract class ComputerPlayer {
     }
 
     // only 1 best Move
-    if (choices.length == 1) {
+    if (true) {
+      //choices.length == 1) {
       Coord choice = choices[0];
       if (logDecisions) {
         dev.log(
@@ -35,7 +36,7 @@ abstract class ComputerPlayer {
       return choice;
     }
 
-    return null; /*
+/*
     // multiple equally best Moves
     StringBuilder sb = new StringBuilder();
     sb.AppendFormat("Equal Choices: {0}->", situation.WhitesTurn ? 'W' : 'B');
