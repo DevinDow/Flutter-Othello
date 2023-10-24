@@ -105,11 +105,11 @@ class _GameState extends State<Game> {
     setState(() {
       previousSituations.add(situation.clone());
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
-      dev.log(situation.toString(), name: "new situation");
+      dev.log(situation.toString(), name: "Game.makeMove()");
 
       // Game Over
       if (situation.endOfGame) {
-        dev.log("End of Game", name: "Game");
+        dev.log("End of Game", name: "Game.makeMove()");
         int blackCount = situation.blackCount;
         int whiteCount = situation.whiteCount;
         String message;
@@ -125,7 +125,7 @@ class _GameState extends State<Game> {
 
       // Skipped Turn
       else if (situation.skippedTurn) {
-        dev.log("Skipped Turn", name: "Game");
+        dev.log("Skipped Turn", name: "Game.makeMove()");
         Alert(context, "Skipped Turn", "There were no Legal Moves available.");
       }
     });

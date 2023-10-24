@@ -60,7 +60,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
           // recurse
           if (logEachUltimateTurn && logEachUltimateOption) {
             dev.log(
-                "       - Ultimate LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, scoreBoard(legalMoveSituation), logEachUltimateTurnBoardState ? legalMoveSituation : null)}");
+                "       - Ultimate LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, scoreBoard(legalMoveSituation), logEachUltimateTurnBoardState ? legalMoveSituation : null)}",
+                name: "logEachUltimateOption");
           }
 
           if (legalMoveSituation.whitesTurn ==
@@ -68,7 +69,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
           {
             if (logEachUltimateTurn) {
               dev.log(
-                  "- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}");
+                  "- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}",
+                  name: "logEachUltimateTurn");
             }
             nextTurn++; // depth should go down to same Player to compare equally
           }
@@ -90,7 +92,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
         // Log each legalMove's recursiveScore
         if (logEachUltimateTurn) {
           dev.log(
-              "- Ultimate LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, scoreBoard(legalMoveSituation), null)} recusiveScore=$recusiveScore");
+              "- Ultimate LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, scoreBoard(legalMoveSituation), null)} recusiveScore=$recusiveScore",
+              name: "logEachUltimateTurn");
         }
 
         if (recusiveScore >
@@ -122,7 +125,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
         // Log each legalMove response
         if (logEachUltimateTurn && logEachUltimateLegalMoveResponse) {
           dev.log(
-              "       - Ultimate Opponent LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, responseScore, logEachUltimateTurnBoardState ? legalMoveSituation : null)}");
+              "       - Ultimate Opponent LegalMove: #$turn=${logChoice(situation.whitesTurn, legalMove, responseScore, logEachUltimateTurnBoardState ? legalMoveSituation : null)}",
+              name: "logEachUltimateLegalMoveResponse");
         }
 
         if (responseScore <
@@ -137,7 +141,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
       // Log the chosen minMaxResponse
       if (logEachUltimateTurn) {
         dev.log(
-            "- Ultimate Opponent's best Response #$turn=${logChoice(situation.whitesTurn, minRecursiveResponse!, minRecursiveScore, logEachUltimateTurnBoardState ? minRecursiveResponseSituation : null)}");
+            "- Ultimate Opponent's best Response #$turn=${logChoice(situation.whitesTurn, minRecursiveResponse!, minRecursiveScore, logEachUltimateTurnBoardState ? minRecursiveResponseSituation : null)}",
+            name: "logEachUltimateTurn");
       }
 
       if (minRecursiveResponseSituation!.endOfGame) {
@@ -152,7 +157,8 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
       {
         if (logEachUltimateTurn) {
           dev.log(
-              "- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}");
+              "- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}",
+              name: "logEachUltimateTurn");
         }
         nextTurn++; // depth should go down to same Player to compare equally
       }

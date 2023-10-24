@@ -36,7 +36,7 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
     for (Coord computerChoice in situation.legalMoves) {
       if (logEachRecursiveTurn) {
         // re-Log initial BoardState before each legal Move
-        dev.log("initial BoardState:$situation");
+        dev.log("initial BoardState:$situation", name: "logEachRecursiveTurn");
       }
 
       // Turn Depth = 1
@@ -46,7 +46,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
       if (logEachRecursiveTurn) {
         // Log computerChoice with its computerChoiceScore & computerBoardState
         dev.log(
-            " - $levelName choice: #1=${logChoice(situation.whitesTurn, computerChoice, computerChoiceScore, computerSituation)}");
+            " - $levelName choice: #1=${logChoice(situation.whitesTurn, computerChoice, computerChoiceScore, computerSituation)}",
+            name: "logEachRecursiveTurn");
       }
 
       // next Turn Depth = 2 (unless Turn Skipped due to no leagl Moves)
@@ -55,7 +56,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
           situation.whitesTurn) // Turn Skipped due to no legal moves
       {
         if (logEachRecursiveTurn) {
-          dev.log("- SKIPPED Turn #2=${situation.whitesTurn ? 'W' : 'B'}");
+          dev.log("- SKIPPED Turn #2=${situation.whitesTurn ? 'W' : 'B'}",
+              name: "logEachRecursiveTurn");
         }
         nextTurn++; // depth should go down to same Player to compare equally
       }
@@ -66,7 +68,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
       if (logEachRecursiveTurn) {
         // Log computerChoice's minMaxScoreAfterSeveralTurns
         dev.log(
-            " - $levelName choice: #1=${logChoice(situation.whitesTurn, computerChoice, computerChoiceScore, null)} minMaxScoreAfterSeveralTurns=$minMaxScoreAfterSeveralTurns\n\n");
+            " - $levelName choice: #1=${logChoice(situation.whitesTurn, computerChoice, computerChoiceScore, null)} minMaxScoreAfterSeveralTurns=$minMaxScoreAfterSeveralTurns\n\n",
+            name: "logEachRecursiveTurn");
       }
 
       // remember the list of bestComputerChoices that attain maxComputerScoreAfterSeveralTurns
@@ -88,7 +91,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
 
     if (logRecursiveChoiceOptions) {
       dev.log(
-          "** $levelName bestChoices count=${bestChoices.length}, maxComputerScoreAfterSeveralTurns=$maxComputerScoreAfterSeveralTurns.  Choose the highest scoring Move.");
+          "** $levelName bestChoices count=${bestChoices.length}, maxComputerScoreAfterSeveralTurns=$maxComputerScoreAfterSeveralTurns.  Choose the highest scoring Move.",
+          name: "logRecursiveChoiceOptions");
     }
 
     // find finalComputerChoices from equal bestComputerChoices based on the one with best computerChoiceScore
@@ -100,7 +104,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
       int computerChoiceScore = scoreBoard(computerSituation);
       if (logRecursiveChoiceOptions) {
         dev.log(
-            "$levelName Top Computer choice: ${logChoice(computerSituation.whitesTurn, computerChoice, computerChoiceScore, null)}");
+            "$levelName Top Computer choice: ${logChoice(computerSituation.whitesTurn, computerChoice, computerChoiceScore, null)}",
+            name: "logRecursiveChoiceOptions");
       }
       if (computerChoiceScore > maxComputerScore) {
         maxComputerScore = computerChoiceScore;
@@ -113,7 +118,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
 
     if (logRecursiveChoiceOptions) {
       dev.log(
-          "finalComputerChoices count=${finalComputerChoices.length}, maxComputerScore=$maxComputerScore maxComputerScoreAfterSeveralTurns=$maxComputerScoreAfterSeveralTurns");
+          "finalComputerChoices count=${finalComputerChoices.length}, maxComputerScore=$maxComputerScore maxComputerScoreAfterSeveralTurns=$maxComputerScoreAfterSeveralTurns",
+          name: "logRecursiveChoiceOptions");
     }
 
     return finalComputerChoices;

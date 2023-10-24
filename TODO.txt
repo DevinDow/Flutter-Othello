@@ -1,7 +1,8 @@
 TODO
 ----
 Undo
-- sometimes undos ComputerPlayer move but does not tell ComputerPlayer to go?
+- ComputerPlayer Moves should not be added to previousSituations
+    - makeMove() needs separate function for User & ComputerPlayer
 
 ComputerPlayer
 - delay move

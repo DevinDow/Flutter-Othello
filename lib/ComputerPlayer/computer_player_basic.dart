@@ -26,7 +26,8 @@ abstract class ComputerPlayerBasic extends ComputerPlayer {
       int computerChoiceScore = scoreBoard(computerSituation);
       if (logBasicOptions) {
         dev.log(
-            "$levelName choice: ${situation.whitesTurn ? 'W' : 'B'}->$computerChoice resulting Score=$computerChoiceScore\nresulting Situation=$situation");
+            "$levelName choice: ${situation.whitesTurn ? 'W' : 'B'}->$computerChoice resulting Score=$computerChoiceScore\nresulting Situation=$situation",
+            name: "ComputerPlayerBasic.findBestChoices()");
       }
 
       if (computerChoiceScore >

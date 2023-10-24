@@ -53,7 +53,8 @@ class ComputerPlayerExpert extends ComputerPlayerRecursive {
       // Log each legalMove response
       if (logEachExpertTurn && logEachExpertLegalMoveResponse) {
         dev.log(
-            "       - Expert LegalMove Response: #$turn=${logChoice(situation.whitesTurn, response, responseScore, logEachExpertTurnBoardState ? responseSituation : null)}");
+            "       - Expert LegalMove Response: #$turn=${logChoice(situation.whitesTurn, response, responseScore, logEachExpertTurnBoardState ? responseSituation : null)}",
+            name: "logEachExpertLegalMoveResponse");
       }
 
       if (myTurn) {
@@ -78,7 +79,8 @@ class ComputerPlayerExpert extends ComputerPlayerRecursive {
     // Log the chosen minMaxResponse
     if (logEachExpertTurn) {
       dev.log(
-          "- Expert response #$turn=${logChoice(situation.whitesTurn, minMaxResponse!, minMaxScore, logEachExpertTurnBoardState ? minMaxResponseSituation : null)}");
+          "- Expert response #$turn=${logChoice(situation.whitesTurn, minMaxResponse!, minMaxScore, logEachExpertTurnBoardState ? minMaxResponseSituation : null)}",
+          name: "logEachExpertTurn");
     }
 
     if (turn >= expertTurnsDepth) return minMaxScore;
@@ -88,8 +90,8 @@ class ComputerPlayerExpert extends ComputerPlayerRecursive {
         situation.whitesTurn) // turn skipped due to no legal moves
     {
       if (logEachExpertTurn) {
-        dev.log(
-            "- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}");
+        dev.log("- SKIPPED Turn #$nextTurn=${situation.whitesTurn ? 'W' : 'B'}",
+            name: "logEachExpertTurn");
       }
       nextTurn++; // depth should go down to same Player to compare equally
     }

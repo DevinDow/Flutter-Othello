@@ -16,7 +16,8 @@ abstract class ComputerPlayer {
     if (logDecisions) {
       int initialScore = scoreBoard(situation);
       dev.log(
-          "$levelName ${amIWhite ? 'W' : 'B'}\ninitial BoardState:$situation\ninitial Score=$initialScore");
+          "$levelName ${amIWhite ? 'W' : 'B'}\ninitial BoardState:$situation\ninitial Score=$initialScore",
+          name: "ComputerPlayer.logDecisions");
     }
 
     List<Coord> choices = findBestChoices(situation);
@@ -31,8 +32,8 @@ abstract class ComputerPlayer {
       //choices.length == 1) {
       Coord choice = choices[0];
       if (logDecisions) {
-        dev.log(
-            "$levelName chose ${situation.whitesTurn ? 'W' : 'B'}->$choice");
+        dev.log("$levelName chose ${situation.whitesTurn ? 'W' : 'B'}->$choice",
+            name: "ComputerPlayer.logDecisions");
       }
       return choice;
     }
