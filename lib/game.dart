@@ -58,7 +58,7 @@ class _GameState extends State<Game> {
                   style: Theme.of(context).textTheme.headlineMedium),
 
               // Board
-              Board(situation: situation, makeMoveCallback: makeMove),
+              Board(situation: situation, makeMoveCallback: makeUserMove),
 
               // Turn
               Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
@@ -101,9 +101,13 @@ class _GameState extends State<Game> {
     );
   }
 
+  void makeUserMove(Coord coord) {
+    previousSituations.add(situation.clone());
+    makeMove(coord);
+  }
+
   void makeMove(Coord coord) {
     setState(() {
-      previousSituations.add(situation.clone());
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
       dev.log(situation.toString(), name: "Game.makeMove()");
 

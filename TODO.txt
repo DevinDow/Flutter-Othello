@@ -1,10 +1,7 @@
 TODO
 ----
-Undo
-- ComputerPlayer Moves should not be added to previousSituations
-    - makeMove() needs separate function for User & ComputerPlayer
-
 ComputerPlayer
+- random for Choice & for variability
 - delay move
 - choose Opponent
 
