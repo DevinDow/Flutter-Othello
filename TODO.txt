@@ -1,8 +1,10 @@
 TODO
 ----
+Undo
+- sometimes undos ComputerPlayer move but does not tell ComputerPlayer to go?
+
 ComputerPlayer
 - delay move
-- Ultimate
 - choose Opponent
 
 Animation
