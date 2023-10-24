@@ -1,8 +1,11 @@
 TODO
 ----
 ComputerPlayer
-- random for Choice & for variability
+- Ulimate Depth vs Expert Depth
+- needs async
 - delay move
+    - can just make Ultimate think deeper
+- random for Choice & for variability
 - choose Opponent
 
 Animation
