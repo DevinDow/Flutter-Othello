@@ -73,13 +73,13 @@ abstract class ComputerPlayer {
           continue;
         }
         Coord coord = Coord(x, y);
-        int weightedCoordValue = WeightedCoordValue(coord, emptyCount);
+        int coordValue = weightedCoordValue(coord, emptyCount);
 
         // if AmIWhite then add for White Pieces & subtract for Black Pieces
         score = score +
             ((amIWhite ^ (state == SquareState.black))
-                ? weightedCoordValue
-                : -weightedCoordValue);
+                ? coordValue
+                : -coordValue);
       }
     }
 
@@ -90,7 +90,7 @@ abstract class ComputerPlayer {
   /// Beginner values all Coords equally, while higher Levels weight Coord values by location as more valuable or dangerous
   /// Intermediate/Advanced use negatives to make better decisions
   /// Recursive Levels avoid negatives
-  /*virtual*/ int WeightedCoordValue(Coord coord, int emptyCount) {
+  /*virtual*/ int weightedCoordValue(Coord coord, int emptyCount) {
     // Intermediate/Advanced perform better with Negatives helping make better decisions.
     // 50 -5 20 20
     // -5 -9 -2 -2
