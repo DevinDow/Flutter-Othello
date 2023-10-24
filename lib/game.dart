@@ -5,7 +5,7 @@ import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/ComputerPlayer/computer_player.dart';
-import 'package:othello/ComputerPlayer/computer_player_intermediate.dart';
+import 'package:othello/ComputerPlayer/computer_player_expert.dart';
 import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
@@ -21,7 +21,7 @@ class _GameState extends State<Game> {
   late Situation situation;
   late List<Situation> previousSituations;
 
-  ComputerPlayer computer = ComputerPlayerIntermediate(true);
+  ComputerPlayer computer = ComputerPlayerExpert(true);
 
   _GameState() {
     initGame();
@@ -79,12 +79,12 @@ class _GameState extends State<Game> {
                         Icon(Icons.location_on),
                         Text("Legal Moves"),
                       ])),
-                  const ElevatedButton(
+                  /*const ElevatedButton(
                       onPressed: null, //computer,
                       child: Column(children: [
                         Icon(Icons.computer),
                         Text("Computer"),
-                      ])),
+                      ])),*/
                   ElevatedButton(
                       onPressed: newGame,
                       child: const Column(children: [
