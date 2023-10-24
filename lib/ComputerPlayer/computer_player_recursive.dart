@@ -92,7 +92,7 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
     }
 
     // find finalComputerChoices from equal bestComputerChoices based on the one with best computerChoiceScore
-    int maxComputerScore = -1000000;
+    int maxComputerScore = -ComputerPlayer.maxScore;
     List<Coord> finalComputerChoices = List<Coord>.empty(growable: true);
     for (Coord computerChoice in bestChoices) {
       Situation computerSituation = situation.clone();

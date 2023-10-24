@@ -4,6 +4,7 @@ import 'package:othello/situation.dart';
 import 'dart:developer' as dev;
 
 abstract class ComputerPlayer {
+  static const int maxScore = 1000000;
   bool amIWhite;
   late String levelName;
   static bool logDecisions = true;

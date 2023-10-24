@@ -15,7 +15,7 @@ abstract class ComputerPlayerBasic extends ComputerPlayer {
   /// <returns>a Choice that maximizes weighted Score</returns>
   @override
   List<Coord> findBestChoices(Situation situation) {
-    int maxScore = -1000000;
+    int maxScore = -ComputerPlayer.maxScore;
     List<Coord> bestComputerChoices = List<Coord>.empty(growable: true);
 
     // loop through all of Computer's Legal Moves

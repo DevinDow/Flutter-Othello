@@ -1,3 +1,4 @@
+import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_recursive.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
@@ -27,7 +28,8 @@ class ComputerPlayerExpert extends ComputerPlayerRecursive {
   /// return the minMaxScore after several Turns/recusions
   int findMinMaxScoreForHighestScoringMove(Situation situation, int turn) {
     bool myTurn = situation.whitesTurn ^ !amIWhite;
-    int minMaxScore = myTurn ? -1000000 : 1000000;
+    int minMaxScore =
+        myTurn ? -ComputerPlayer.maxScore : ComputerPlayer.maxScore;
     Coord? minMaxResponse;
     Situation? minMaxResponseSituation;
 
