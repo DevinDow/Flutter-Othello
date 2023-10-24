@@ -17,7 +17,7 @@ class ComputerPlayerUltimate extends ComputerPlayerExpert {
 
   ComputerPlayerUltimate(bool amIWhite,
       {int depthForEveryMove = 6, int depthForOnlyBestMove = 11})
-      : super(amIWhite /*, {depth=depthForOnlyBestMove}*/) {
+      : super(amIWhite, depth: depthForOnlyBestMove) {
     levelName = "Ultimate";
     ultimateTurnsDepthToStartUsingExpert = depthForEveryMove;
     expertTurnsDepth = depthForOnlyBestMove;

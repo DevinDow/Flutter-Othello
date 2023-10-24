@@ -5,7 +5,7 @@ import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/ComputerPlayer/computer_player.dart';
-import 'package:othello/ComputerPlayer/computer_player_expert.dart';
+import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
 import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
@@ -21,7 +21,8 @@ class _GameState extends State<Game> {
   late Situation situation;
   late List<Situation> previousSituations;
 
-  ComputerPlayer computer = ComputerPlayerExpert(true);
+  ComputerPlayer computer = ComputerPlayerUltimate(true,
+      depthForEveryMove: 6, depthForOnlyBestMove: 11);
 
   _GameState() {
     initGame();
