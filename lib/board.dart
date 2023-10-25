@@ -8,15 +8,18 @@ import 'package:othello/alert.dart';
 import 'dart:developer' as dev;
 
 class Board extends StatelessWidget {
+  final Situation situation;
+  final Function makeMoveCallback;
+  static bool logBoardBuildSituation = false;
+
   const Board(
       {super.key, required this.situation, required this.makeMoveCallback});
 
-  final Situation situation;
-  final Function makeMoveCallback;
-
   @override
   Widget build(BuildContext context) {
-    dev.log("situation = $situation", name: "Board");
+    if (logBoardBuildSituation) {
+      dev.log("situation = $situation", name: "Board.build()");
+    }
 
     return Expanded(
       // let it expand as tall as Column allows, then make Width the same so it's a square
