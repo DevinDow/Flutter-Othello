@@ -1,10 +1,9 @@
 TODO
 ----
 ComputerPlayer
-- Ulimate Depth vs Expert Depth
-- needs async
-- delay move
-    - can just make Ultimate think deeper
+- delay move using a Timer to launch ComputerPlayer.chooseNextMove
+- don't accept clicks when Computer's Turn
+    - waiting indicator?
 - random for Choice & for variability
 - choose Opponent
 
@@ -13,3 +12,5 @@ Animation
     - https://github.com/sbis04/custom_painter/blob/master/animate_polygons/lib/main.dart
 
 Tests
+- ComputerPlayer
+    - First Move
