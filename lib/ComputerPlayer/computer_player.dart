@@ -7,52 +7,49 @@ abstract class ComputerPlayer {
   static const int maxScore = 1000000;
   bool amIWhite;
   late String levelName;
-  static bool logDecisions = true;
+  static bool logDecisions = false;
 
   ComputerPlayer(this.amIWhite);
 
   /// returns ComputerPlayer's choice for next move
   Coord? chooseNextMove(Situation situation) {
+    // log initial BoardState & Score
     if (logDecisions) {
       int initialScore = scoreBoard(situation);
       dev.log(
           "$levelName ${amIWhite ? 'W' : 'B'}\ninitial BoardState:$situation\ninitial Score=$initialScore",
-          name: "ComputerPlayer.logDecisions");
+          name: "ComputerPlayer.chooseNextMove()");
     }
 
+    // call derived class' findBestChoices()
+    DateTime start = DateTime.now();
     List<Coord> choices = findBestChoices(situation);
+    Duration duration = DateTime.now().difference(start);
+    String seconds = (0.001 * duration.inMilliseconds).toStringAsPrecision(3);
+    dev.log("$levelName took $seconds seconds to select $choices",
+        name: "ComputerPlayer.chooseNextMove()");
 
     // no legal Moves
     if (choices.isEmpty) {
       return null;
     }
 
+    return choices[0]; // keep until implement randomChoice below
+/*
     // only 1 best Move
-    if (true) {
-      //choices.length == 1) {
-      Coord choice = choices[0];
-      if (logDecisions) {
-        dev.log("$levelName chose ${situation.whitesTurn ? 'W' : 'B'}->$choice",
-            name: "ComputerPlayer.logDecisions");
-      }
-      return choice;
+    if (choices.length == 1) {
+      return choices[0];
     }
 
-/*
     // multiple equally best Moves
-    StringBuilder sb = new StringBuilder();
-    sb.AppendFormat("Equal Choices: {0}->", situation.WhitesTurn ? 'W' : 'B');
-    foreach (Coord choice in choices)
-      sb.Append(choice + " ");
-          if (logDecisions)
-              Debug.Print(sb.ToString());
-
     // randomly pick one of the choices
-          int randomIndex = random.Next(choices.Count);
+    int randomIndex = random.Next(choices.Count);
     Coord randomChoice = choices[randomIndex];
-          if (logDecisions)
-              Debug.Print("{0} chose {1}->{2}", levelName, situation.WhitesTurn ? 'W' : 'B', randomChoice);
-          return randomChoice;
+    if (logDecisions) {}
+      dev.log("$levelName randomly selected $randomChoice",
+          name: "ComputerPlayer.chooseNextMove()");
+    }    
+    return randomChoice;
 */
   }
 
