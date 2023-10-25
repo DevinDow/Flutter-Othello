@@ -101,11 +101,21 @@ class _GameState extends State<Game> {
     );
   }
 
+  /// adds to previousSituations before calling makeMove()
   void makeUserMove(Coord coord) {
     previousSituations.add(situation.clone());
     makeMove(coord);
   }
 
+  /// compute the next Move for ComputerPlayer then execute it
+  void makeComputerMove() {
+    Coord? choice = computer.chooseNextMove(situation);
+    if (choice != null) {
+      makeMove(choice);
+    }
+  }
+
+  /// executes a Move, Alerts for Skipped Turn or End of Game, triggers ComputerPlayer to chooseNextMove()
   void makeMove(Coord coord) {
     setState(() {
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
@@ -134,11 +144,10 @@ class _GameState extends State<Game> {
       }
     });
 
+    // if it is now Computer's Turn
     if (computer.amIWhite ^ !situation.whitesTurn) {
-      Coord? computerChoice = computer.chooseNextMove(situation);
-      if (computerChoice != null) {
-        makeMove(computerChoice);
-      }
+      // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
+      Future.delayed(const Duration(seconds: 1), makeComputerMove);
     }
   }
 
