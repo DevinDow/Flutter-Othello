@@ -1,10 +1,8 @@
 TODO
 ----
 ComputerPlayer
-- delay move using a Timer to launch ComputerPlayer.chooseNextMove
-- don't accept clicks when Computer's Turn
-    - waiting indicator?
 - random for Choice & for variability
+- waiting indicator?
 - choose Opponent
 
 Animation

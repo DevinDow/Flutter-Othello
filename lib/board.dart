@@ -42,6 +42,11 @@ class Board extends StatelessWidget {
       return;
     }
 
+    if (situation.whitesTurn) {
+      Alert(context, "Computer's Turn", "Computer algorithm is thinking");
+      return;
+    }
+
     Offset pos = details.localPosition;
     dev.log("Tapped at $pos", name: "Board");
 
@@ -50,13 +55,6 @@ class Board extends StatelessWidget {
     int y = (pos.dy / BoardPainter.squareSize).floor();
     Coord coord = Coord(x + 1, y + 1);
     dev.log("Tapped at coord $coord", name: "Board");
-
-    // not a Legal Move
-    if (!situation.isLegalMove(coord)) {
-      dev.log("Not a Legal Move!", name: "Board");
-      Alert(context, "Not a Legal Move!", "Try again");
-      return;
-    }
 
     // make Move
     makeMoveCallback(coord);

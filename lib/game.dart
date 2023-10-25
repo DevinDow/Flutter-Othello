@@ -103,6 +103,13 @@ class _GameState extends State<Game> {
 
   /// adds to previousSituations before calling makeMove()
   void makeUserMove(Coord coord) {
+    // not a Legal Move
+    if (!situation.isLegalMove(coord)) {
+      dev.log("Not a Legal Move!", name: "Board");
+      Alert(context, "Not a Legal Move!", "Try again");
+      return;
+    }
+
     previousSituations.add(situation.clone());
     makeMove(coord);
   }
