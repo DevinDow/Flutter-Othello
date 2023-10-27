@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:othello/main.dart';
-import 'package:othello/board.dart';
+//import 'package:othello/board.dart';
 
 void main() {
   testWidgets("Black's Turn, Score = 2-2", (WidgetTester tester) async {
