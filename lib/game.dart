@@ -49,54 +49,67 @@ class _GameState extends State<Game> {
         title: const Text("Othello"),
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              // Score
-              Text(
-                  'Black = ${situation.blackCount}, White = ${situation.whiteCount}',
-                  style: Theme.of(context).textTheme.headlineMedium),
+        // Stack of UI with Progress on top
+        child: Stack(children: [
+          Center(
+            child: Column(
+              children: <Widget>[
+                // Score
+                Text(
+                    'Black = ${situation.blackCount}, White = ${situation.whiteCount}',
+                    style: Theme.of(context).textTheme.headlineMedium),
 
-              // Board
-              Board(situation: situation, makeMoveCallback: makeUserMove),
+                // Board
+                Board(situation: situation, makeMoveCallback: makeUserMove),
 
-              // Turn
-              Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
-                  style: Theme.of(context).textTheme.headlineMedium),
+                // Turn
+                Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
+                    style: Theme.of(context).textTheme.headlineMedium),
 
-              // Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                      onPressed: previousSituations.isEmpty ? null : undo,
-                      child: const Column(children: [
-                        Icon(Icons.undo),
-                        Text("Undo"),
-                      ])),
-                  ElevatedButton(
-                      onPressed: showLegalMoves,
-                      child: const Column(children: [
-                        Icon(Icons.location_on),
-                        Text("Legal Moves"),
-                      ])),
-                  /*const ElevatedButton(
+                // Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: previousSituations.isEmpty ? null : undo,
+                        child: const Column(children: [
+                          Icon(Icons.undo),
+                          Text("Undo"),
+                        ])),
+                    ElevatedButton(
+                        onPressed: showLegalMoves,
+                        child: const Column(children: [
+                          Icon(Icons.location_on),
+                          Text("Legal Moves"),
+                        ])),
+                    /*const ElevatedButton(
                       onPressed: null, //computer,
                       child: Column(children: [
                         Icon(Icons.computer),
                         Text("Computer"),
                       ])),*/
-                  ElevatedButton(
-                      onPressed: newGame,
-                      child: const Column(children: [
-                        Icon(Icons.restart_alt),
-                        Text("New Game"),
-                      ])),
-                ],
-              ),
-            ],
+                    ElevatedButton(
+                        onPressed: newGame,
+                        child: const Column(children: [
+                          Icon(Icons.restart_alt),
+                          Text("New Game"),
+                        ])),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+
+          // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
+          (computer.amIWhite ^ !situation.whitesTurn)
+              ? Container(
+                  color: Colors.black.withOpacity(0.1),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Container()
+        ]),
       ),
     );
   }
