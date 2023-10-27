@@ -139,8 +139,8 @@ abstract class ComputerPlayerRecursive extends ComputerPlayer {
     }
 
     return endOfGameScore; /* *
-        (100 + random.Next(10)) /
-        100; // increase by 1-10% to add a little randomness to prevent repeat games;*/
+        (100 + Random().nextInt(10)) /
+        100; // increase by 1-10% to add a little randomness to prevent repeat games in ComputerPlayer vs ComputerPlayer Tests;*/
   }
 
   /// W->(1,1) resulting Score=+100

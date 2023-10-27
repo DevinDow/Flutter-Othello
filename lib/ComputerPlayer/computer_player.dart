@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 
@@ -34,8 +36,6 @@ abstract class ComputerPlayer {
       return null;
     }
 
-    return choices[0]; // keep until implement randomChoice below
-/*
     // only 1 best Move
     if (choices.length == 1) {
       return choices[0];
@@ -43,14 +43,13 @@ abstract class ComputerPlayer {
 
     // multiple equally best Moves
     // randomly pick one of the choices
-    int randomIndex = random.Next(choices.Count);
+    int randomIndex = Random().nextInt(choices.length);
     Coord randomChoice = choices[randomIndex];
-    if (logDecisions) {}
+    if (logDecisions) {
       dev.log("$levelName randomly selected $randomChoice",
           name: "ComputerPlayer.chooseNextMove()");
-    }    
+    }
     return randomChoice;
-*/
   }
 
   List<Coord> findBestChoices(Situation situation);
@@ -82,7 +81,7 @@ abstract class ComputerPlayer {
       }
     }
 
-    return score; // * (100 + random.Next(10)) / 100; // increase by 1-10% to add a little randomness to prevent repeat games
+    return score; // * (100 + Random().nextInt(10)) / 100; // increase by 1-10% to add a little randomness to prevent repeat games in ComputerPlayer vs ComputerPlayer Tests
   }
 
   /// returns a weighted value for a Coord

@@ -1,7 +1,6 @@
 TODO
 ----
 ComputerPlayer
-- random for Choice & for variability
 - waiting indicator?
 - choose Opponent
 
