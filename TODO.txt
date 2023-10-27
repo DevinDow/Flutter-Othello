@@ -1,7 +1,6 @@
 TODO
 ----
 ComputerPlayer
-- waiting indicator?
 - choose Opponent
 
 Animation
