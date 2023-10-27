@@ -5,6 +5,13 @@ class Coord {
   Coord(this.x, this.y);
 
   @override
+  bool operator ==(Object other) {
+    assert(other is Coord);
+    Coord otherCoord = other as Coord;
+    return x == otherCoord.x && y == otherCoord.y;
+  }
+
+  @override
   String toString() {
     return "($x, $y)";
   }
