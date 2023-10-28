@@ -36,12 +36,15 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
 
     animation = rotationTween.animate(controller)
+      // called every time that animation.value changes
       ..addListener(() {
-        setState(() {});
+        setState(() {}); // trigger state changed => build()
       })
+
+      // called every time that the status changes
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          //controller.repeat();
+          widget.situation.coordsFlipped = List.empty();
         } else if (status == AnimationStatus.dismissed) {
           controller.forward();
         }
@@ -60,9 +63,13 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
       dev.log("situation = ${widget.situation}", name: "Board.build()");
     }
 
+    // start the Animation
     if (widget.situation.coordsFlipped.isNotEmpty) {
-      // start the Animation
-      controller.repeat();
+      if (controller.status == AnimationStatus.dismissed) {
+        controller.forward();
+      } else if (controller.status == AnimationStatus.completed) {
+        controller.reset();
+      }
     }
 
     return Expanded(
