@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 
+import 'dart:math' as math;
+
 class BoardPainter extends CustomPainter {
   static double boardSize = 0;
   static double get squareSize => boardSize / 8;
@@ -11,9 +13,10 @@ class BoardPainter extends CustomPainter {
 
   // Fields
   late final Situation situation;
+  late final double flipAngle;
 
   // Constructor
-  BoardPainter({required this.situation});
+  BoardPainter(this.situation, this.flipAngle);
 
   // Overrides
   @override
@@ -59,7 +62,14 @@ class BoardPainter extends CustomPainter {
         double yOffset = y * squareSize + squareSize / 2;
         Paint paint =
             squareState == SquareState.black ? blackPaint : whitePaint;
-        canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+        //canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+
+        // width of oval determined by flipAngle
+        double pieceWidth = pieceRadius * math.cos(flipAngle);
+        canvas.drawOval(
+            Rect.fromLTRB(xOffset - pieceWidth, yOffset - pieceRadius,
+                xOffset + pieceWidth, yOffset + pieceRadius),
+            paint);
       }
     }
 

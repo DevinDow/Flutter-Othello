@@ -30,10 +30,10 @@ class _BoardState extends State<Board> with TickerProviderStateMixin {
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1500),
     );
 
-    Tween<double> rotationTween = Tween(begin: -math.pi, end: math.pi);
+    Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
 
     animation = rotationTween.animate(controller)
       ..addListener(() {
@@ -75,7 +75,7 @@ class _BoardState extends State<Board> with TickerProviderStateMixin {
               animation: animation,
               builder: (context, snapshot) {
                 return CustomPaint(
-                    painter: BoardPainter(situation: widget.situation));
+                    painter: BoardPainter(widget.situation, animation.value));
               },
             ),
           ),
