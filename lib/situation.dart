@@ -17,6 +17,7 @@ class Situation {
       growable: false);
 
   List<Coord> legalMoves = List.empty();
+  List<Coord> coordsFlipped = List.empty();
 
   bool whitesTurn = false;
   bool skippedTurn = false;
@@ -188,6 +189,7 @@ class Situation {
   void placePieceAndFlipPiecesAndChangeTurns(Coord coord) {
     assert(isLegalMove(coord));
     legalMoves = List.empty();
+    coordsFlipped = List.empty(growable: true);
 
     // place Piece at coord
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
@@ -239,7 +241,7 @@ class Situation {
       // work back to placed piece flipping
       while (!(x == choice.x && y == choice.y)) {
         Coord coordToFlip = Coord(x, y);
-        //coordsFlipped.Add(coordToFlip);
+        coordsFlipped.add(coordToFlip);
         setCoord(
             coordToFlip, whitesTurn ? SquareState.white : SquareState.black);
 
