@@ -7,7 +7,7 @@ import 'package:othello/alert.dart';
 
 import 'dart:developer' as dev;
 
-class Board extends StatelessWidget {
+class Board extends StatefulWidget {
   final Situation situation;
   final Function makeMoveCallback;
   static bool logBoardBuildSituation = false;
@@ -16,9 +16,14 @@ class Board extends StatelessWidget {
       {super.key, required this.situation, required this.makeMoveCallback});
 
   @override
+  State<Board> createState() => _BoardState();
+}
+
+class _BoardState extends State<Board> {
+  @override
   Widget build(BuildContext context) {
-    if (logBoardBuildSituation) {
-      dev.log("situation = $situation", name: "Board.build()");
+    if (Board.logBoardBuildSituation) {
+      dev.log("situation = ${widget.situation}", name: "Board.build()");
     }
 
     return Expanded(
@@ -29,7 +34,8 @@ class Board extends StatelessWidget {
               .maxHeight, // make it a square based on Expanded's Height
           child: GestureDetector(
             onTapDown: (details) => _onTapDown(details, context),
-            child: CustomPaint(painter: BoardPainter(situation: situation)),
+            child:
+                CustomPaint(painter: BoardPainter(situation: widget.situation)),
           ),
         ),
       ),
@@ -37,12 +43,12 @@ class Board extends StatelessWidget {
   }
 
   _onTapDown(TapDownDetails details, BuildContext context) {
-    if (situation.endOfGame) {
+    if (widget.situation.endOfGame) {
       Alert(context, "Game Over", "press New Game to play again");
       return;
     }
 
-    if (situation.whitesTurn) {
+    if (widget.situation.whitesTurn) {
       Alert(context, "Computer's Turn", "Computer algorithm is thinking");
       return;
     }
@@ -57,6 +63,6 @@ class Board extends StatelessWidget {
     dev.log("Tapped at coord $coord", name: "Board");
 
     // make Move
-    makeMoveCallback(coord);
+    widget.makeMoveCallback(coord);
   }
 }
