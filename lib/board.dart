@@ -64,12 +64,21 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     }
 
     // start the Animation
-    if (widget.situation.coordsFlipped.isNotEmpty) {
-      if (controller.status == AnimationStatus.dismissed) {
-        controller.forward();
-      } else if (controller.status == AnimationStatus.completed) {
-        controller.reset();
+    if (widget.situation.coordsFlipped.isNotEmpty &&
+        widget.situation.restartAnimation) {
+      switch (controller.status) {
+        case AnimationStatus.completed:
+        case AnimationStatus.forward:
+          controller.reset();
+          controller.forward();
+          break;
+        case AnimationStatus.dismissed:
+          controller.forward();
+          break;
+        default:
+          break;
       }
+      widget.situation.restartAnimation = false;
     }
 
     return Expanded(

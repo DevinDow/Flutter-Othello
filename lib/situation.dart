@@ -22,6 +22,7 @@ class Situation {
   bool whitesTurn = false;
   bool skippedTurn = false;
   bool endOfGame = false;
+  bool restartAnimation = true;
 
   // Constructor
   Situation({this.whitesTurn = false, setInitialPieces = true}) {
@@ -190,6 +191,7 @@ class Situation {
     assert(isLegalMove(coord));
     legalMoves = List.empty();
     coordsFlipped = List.empty(growable: true);
+    restartAnimation = true;
 
     // place Piece at coord
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
