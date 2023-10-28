@@ -3,9 +3,7 @@ TODO
 ComputerPlayer
 - choose Opponent
 
-Animation
-- https://blog.codemagic.io/flutter-custom-painter/
-    - https://github.com/sbis04/custom_painter/blob/master/animate_polygons/lib/main.dart
+draw Placed Piece slightly differently
 
 GIF for Website
 - use C# @ 481x481 w/ breakpoints on flipping
