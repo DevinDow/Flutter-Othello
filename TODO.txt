@@ -1,9 +1,8 @@
 TODO
 ----
+Illegal Move should cause ShowLegalMoves
+
 ComputerPlayer
 - choose Opponent
 
 draw Placed Piece slightly differently
-
-GIF for Website
-- use C# @ 481x481 w/ breakpoints on flipping
