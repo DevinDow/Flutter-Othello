@@ -123,7 +123,8 @@ class _GameState extends State<Game> {
       return;
     }
 
-    previousSituations.add(situation.clone());
+    previousSituations.add(situation);
+    situation = situation.clone();
     makeMove(coord);
   }
 
