@@ -20,7 +20,7 @@ class Board extends StatefulWidget {
   State<Board> createState() => _BoardState();
 }
 
-class _BoardState extends State<Board> with TickerProviderStateMixin {
+class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
 
