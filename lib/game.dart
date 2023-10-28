@@ -101,7 +101,7 @@ class _GameState extends State<Game> {
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
-          (computer.amIWhite ^ !situation.whitesTurn)
+          (!situation.endOfGame && (computer.amIWhite ^ !situation.whitesTurn))
               ? Container(
                   color: Colors.black.withOpacity(0.1),
                   child: const Center(
