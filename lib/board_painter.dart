@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/situation.dart';
 
+import 'dart:math' as math;
+
 class BoardPainter extends CustomPainter {
   static double boardSize = 0;
   static double get squareSize => boardSize / 8;
@@ -11,9 +13,10 @@ class BoardPainter extends CustomPainter {
 
   // Fields
   late final Situation situation;
+  late final double flipAngle;
 
   // Constructor
-  BoardPainter({required this.situation});
+  BoardPainter(this.situation, this.flipAngle);
 
   // Overrides
   @override
@@ -48,6 +51,12 @@ class BoardPainter extends CustomPainter {
       ..strokeWidth = 0.0
       ..color = Colors.white;
 
+    // flippingWidth of oval determined by flipAngle
+    double flippingWidth = pieceRadius * math.cos(flipAngle);
+    bool useOldColor =
+        flipAngle < math.pi / 2; // until it's flipped half way to new Color
+
+    // loop all Squares
     for (int y = 0; y < 8; y++) {
       for (int x = 0; x < 8; x++) {
         SquareState squareState = situation.squares[x][y];
@@ -57,9 +66,21 @@ class BoardPainter extends CustomPainter {
 
         double xOffset = x * squareSize + squareSize / 2;
         double yOffset = y * squareSize + squareSize / 2;
-        Paint paint =
-            squareState == SquareState.black ? blackPaint : whitePaint;
-        canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+
+        Coord coord = Coord(x + 1, y + 1);
+        if (situation.coordsFlipped.contains(coord)) {
+          Paint paint = (squareState == SquareState.black) ^ useOldColor
+              ? blackPaint
+              : whitePaint;
+          canvas.drawOval(
+              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                  xOffset + flippingWidth, yOffset + pieceRadius),
+              paint);
+        } else {
+          Paint paint =
+              squareState == SquareState.black ? blackPaint : whitePaint;
+          canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+        }
       }
     }
 

@@ -5,9 +5,10 @@ import 'package:othello/situation.dart';
 import 'package:othello/board_painter.dart';
 import 'package:othello/alert.dart';
 
+import 'dart:math' as math;
 import 'dart:developer' as dev;
 
-class Board extends StatelessWidget {
+class Board extends StatefulWidget {
   final Situation situation;
   final Function makeMoveCallback;
   static bool logBoardBuildSituation = false;
@@ -16,9 +17,68 @@ class Board extends StatelessWidget {
       {super.key, required this.situation, required this.makeMoveCallback});
 
   @override
+  State<Board> createState() => _BoardState();
+}
+
+class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
+
+    animation = rotationTween.animate(controller)
+      // called every time that animation.value changes
+      ..addListener(() {
+        setState(() {}); // trigger state changed => build()
+      })
+
+      // called every time that the status changes
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          widget.situation.coordsFlipped = List.empty();
+        } else if (status == AnimationStatus.dismissed) {
+          controller.forward();
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (logBoardBuildSituation) {
-      dev.log("situation = $situation", name: "Board.build()");
+    if (Board.logBoardBuildSituation) {
+      dev.log("situation = ${widget.situation}", name: "Board.build()");
+    }
+
+    // start the Animation
+    if (widget.situation.coordsFlipped.isNotEmpty &&
+        widget.situation.restartAnimation) {
+      switch (controller.status) {
+        case AnimationStatus.completed:
+        case AnimationStatus.forward:
+          controller.reset();
+          controller.forward();
+          break;
+        case AnimationStatus.dismissed:
+          controller.forward();
+          break;
+        default:
+          break;
+      }
+      widget.situation.restartAnimation = false;
     }
 
     return Expanded(
@@ -29,20 +89,28 @@ class Board extends StatelessWidget {
               .maxHeight, // make it a square based on Expanded's Height
           child: GestureDetector(
             onTapDown: (details) => _onTapDown(details, context),
-            child: CustomPaint(painter: BoardPainter(situation: situation)),
+            child: AnimatedBuilder(
+              animation: animation,
+              builder: (context, snapshot) {
+                return CustomPaint(
+                    painter: BoardPainter(widget.situation, animation.value));
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
+  /// User clicked the Board
+  /// figure out which Coord and call Game's makeMoveCallback()
   _onTapDown(TapDownDetails details, BuildContext context) {
-    if (situation.endOfGame) {
+    if (widget.situation.endOfGame) {
       Alert(context, "Game Over", "press New Game to play again");
       return;
     }
 
-    if (situation.whitesTurn) {
+    if (widget.situation.whitesTurn) {
       Alert(context, "Computer's Turn", "Computer algorithm is thinking");
       return;
     }
@@ -57,6 +125,6 @@ class Board extends StatelessWidget {
     dev.log("Tapped at coord $coord", name: "Board");
 
     // make Move
-    makeMoveCallback(coord);
+    widget.makeMoveCallback(coord);
   }
 }
