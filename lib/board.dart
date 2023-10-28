@@ -46,9 +46,6 @@ class _BoardState extends State<Board> with TickerProviderStateMixin {
           controller.forward();
         }
       });
-
-    // start the Animation
-    controller.forward();
   }
 
   @override
@@ -61,6 +58,11 @@ class _BoardState extends State<Board> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     if (Board.logBoardBuildSituation) {
       dev.log("situation = ${widget.situation}", name: "Board.build()");
+    }
+
+    if (widget.situation.coordsFlipped.isNotEmpty) {
+      // start the Animation
+      controller.repeat();
     }
 
     return Expanded(
