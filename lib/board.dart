@@ -102,7 +102,7 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     );
   }
 
-  /// User clikced the Board
+  /// User clicked the Board
   /// figure out which Coord and call Game's makeMoveCallback()
   _onTapDown(TapDownDetails details, BuildContext context) {
     if (widget.situation.endOfGame) {

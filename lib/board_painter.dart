@@ -53,7 +53,8 @@ class BoardPainter extends CustomPainter {
 
     // flippingWidth of oval determined by flipAngle
     double flippingWidth = pieceRadius * math.cos(flipAngle);
-    bool useOldColor = flipAngle < math.pi / 2;
+    bool useOldColor =
+        flipAngle < math.pi / 2; // until it's flipped half way to new Color
 
     // loop all Squares
     for (int y = 0; y < 8; y++) {
