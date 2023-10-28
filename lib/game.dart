@@ -120,6 +120,7 @@ class _GameState extends State<Game> {
     if (!situation.isLegalMove(coord)) {
       dev.log("Not a Legal Move!", name: "Board");
       Alert(context, "Not a Legal Move!", "Try again");
+      showLegalMoves();
       return;
     }
 

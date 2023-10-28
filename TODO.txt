@@ -1,7 +1,5 @@
 TODO
 ----
-Illegal Move should cause ShowLegalMoves
-
 ComputerPlayer
 - choose Opponent
 
