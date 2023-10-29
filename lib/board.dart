@@ -30,7 +30,7 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1000),
     );
 
     Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
