@@ -17,6 +17,7 @@ class Situation {
       growable: false);
 
   List<Coord> legalMoves = List.empty();
+  Coord? placedPiece;
   List<Coord> coordsFlipped = List.empty();
 
   bool whitesTurn = false;
@@ -194,6 +195,7 @@ class Situation {
     restartAnimation = true;
 
     // place Piece at coord
+    placedPiece = coord;
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
 
     // flip all affected Pieces
@@ -286,6 +288,10 @@ class Situation {
 
     if (legalMoves.isNotEmpty) {
       s += "\nLegal Moves=$legalMoves";
+    }
+
+    if (placedPiece != null) {
+      s += "\n$placedPiece placed";
     }
 
     return s;

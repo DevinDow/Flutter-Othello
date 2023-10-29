@@ -50,6 +50,10 @@ class BoardPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 0.0
       ..color = Colors.white;
+    final highlightPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.0
+      ..color = Colors.red;
 
     // flippingWidth of oval determined by flipAngle
     double flippingWidth = pieceRadius * math.cos(flipAngle);
@@ -80,6 +84,10 @@ class BoardPainter extends CustomPainter {
           Paint paint =
               squareState == SquareState.black ? blackPaint : whitePaint;
           canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+          if (coord == situation.placedPiece) {
+            canvas.drawCircle(
+                Offset(xOffset, yOffset), pieceRadius, highlightPaint);
+          }
         }
       }
     }
