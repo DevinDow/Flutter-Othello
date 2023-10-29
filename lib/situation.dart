@@ -16,9 +16,9 @@ class Situation {
       (x) => List<SquareState>.filled(8, SquareState.empty),
       growable: false);
 
-  List<Coord> legalMoves = List.empty();
+  List<Coord> legalMoves = List.empty(growable: true);
   Coord? placedPiece;
-  List<Coord> coordsFlipped = List.empty();
+  List<Coord> coordsFlipped = List.empty(growable: true);
 
   bool whitesTurn = false;
   bool skippedTurn = false;
@@ -81,9 +81,16 @@ class Situation {
     }
 
     // copy legalMoves
-    cloned.legalMoves = List<Coord>.empty(growable: true);
     for (Coord legalMove in legalMoves) {
       cloned.legalMoves.add(Coord(legalMove.x, legalMove.y));
+    }
+
+    // copy placedPiece
+    cloned.placedPiece = placedPiece;
+
+    // copy coordsFlipped
+    if (coordsFlipped.isNotEmpty) {
+      cloned.coordsFlipped.addAll(coordsFlipped);
     }
 
     return cloned;
@@ -199,7 +206,6 @@ class Situation {
     setCoord(coord, whitesTurn ? SquareState.white : SquareState.black);
 
     // flip all affected Pieces
-    //coordsFlipped = new List<Coord>();
     flipInDirection(coord, 0, -1);
     flipInDirection(coord, -1, -1);
     flipInDirection(coord, -1, 0);

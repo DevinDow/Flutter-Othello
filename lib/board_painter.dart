@@ -80,6 +80,10 @@ class BoardPainter extends CustomPainter {
               Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
                   xOffset + flippingWidth, yOffset + pieceRadius),
               paint);
+          canvas.drawOval(
+              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                  xOffset + flippingWidth, yOffset + pieceRadius),
+              highlightPaint);
         } else {
           Paint paint =
               squareState == SquareState.black ? blackPaint : whitePaint;

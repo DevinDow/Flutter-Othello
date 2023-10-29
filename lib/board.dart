@@ -39,15 +39,6 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
       // called every time that animation.value changes
       ..addListener(() {
         setState(() {}); // trigger state changed => build()
-      })
-
-      // called every time that the status changes
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          widget.situation.coordsFlipped = List.empty();
-        } else if (status == AnimationStatus.dismissed) {
-          controller.forward();
-        }
       });
   }
 
