@@ -55,16 +55,64 @@ class _GameState extends State<Game> {
             child: Column(
               children: <Widget>[
                 // Score
-                Text(
-                    'Black = ${situation.blackCount}, White = ${situation.whiteCount}',
-                    style: Theme.of(context).textTheme.headlineMedium),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(),
+                      ),
+                      child: Text(
+                        'Black = ${situation.blackCount}',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 23,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(3),
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(),
+                      ),
+                      child: Text(
+                        'White = ${situation.whiteCount}',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 23,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
 
                 // Board
                 Board(situation: situation, makeMoveCallback: makeUserMove),
 
                 // Turn
-                Text(situation.whitesTurn ? "White's turn" : "Black's Turn",
-                    style: Theme.of(context).textTheme.headlineMedium),
+                Container(
+                  margin: const EdgeInsets.all(3),
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                  decoration: BoxDecoration(
+                    color: situation.whitesTurn ? Colors.white : Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(),
+                  ),
+                  child: Text(
+                    situation.whitesTurn ? "White's turn" : "Black's Turn",
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
 
                 // Buttons
                 Row(
@@ -74,25 +122,19 @@ class _GameState extends State<Game> {
                         onPressed: previousSituations.isEmpty ? null : undo,
                         child: const Column(children: [
                           Icon(Icons.undo),
-                          Text("Undo"),
+                          Text("(U)ndo"),
                         ])),
                     ElevatedButton(
                         onPressed: showLegalMoves,
                         child: const Column(children: [
                           Icon(Icons.location_on),
-                          Text("Legal Moves"),
+                          Text("(L)egal Moves (F1)"),
                         ])),
-                    /*const ElevatedButton(
-                      onPressed: null, //computer,
-                      child: Column(children: [
-                        Icon(Icons.computer),
-                        Text("Computer"),
-                      ])),*/
                     ElevatedButton(
                         onPressed: newGame,
                         child: const Column(children: [
                           Icon(Icons.restart_alt),
-                          Text("New Game"),
+                          Text("(N)ew Game"),
                         ])),
                   ],
                 ),
@@ -211,6 +253,9 @@ class _GameState extends State<Game> {
         case "Backspace":
         case "U":
           undo();
+          return true;
+        case "N":
+          newGame();
           return true;
       }
     }
