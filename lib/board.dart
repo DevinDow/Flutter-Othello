@@ -34,12 +34,7 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     );
 
     Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
-
-    animation = rotationTween.animate(controller)
-      // called every time that animation.value changes
-      ..addListener(() {
-        setState(() {}); // trigger state changed => build()
-      });
+    animation = rotationTween.animate(controller);
   }
 
   @override
