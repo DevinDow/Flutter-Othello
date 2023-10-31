@@ -56,7 +56,7 @@ class BoardPainter extends CustomPainter {
       ..color = Colors.red;
 
     // flippingWidth of oval determined by flipAngle
-    double flippingWidth = pieceRadius * math.cos(flipAngle);
+    double flippingWidth = pieceRadius * math.cos(flipAngle).abs();
     bool useOldColor =
         flipAngle < math.pi / 2; // until it's flipped half way to new Color
 
@@ -73,17 +73,20 @@ class BoardPainter extends CustomPainter {
 
         Coord coord = Coord(x + 1, y + 1);
         if (situation.coordsFlipped.contains(coord)) {
-          Paint paint = (squareState == SquareState.black) ^ useOldColor
-              ? blackPaint
-              : whitePaint;
-          canvas.drawOval(
-              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
-                  xOffset + flippingWidth, yOffset + pieceRadius),
-              paint);
-          canvas.drawOval(
-              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
-                  xOffset + flippingWidth, yOffset + pieceRadius),
-              highlightPaint);
+          if (flippingWidth > pieceRadius / 10) {
+            // skip zero-width Ovals
+            Paint paint = (squareState == SquareState.black) ^ useOldColor
+                ? blackPaint
+                : whitePaint;
+            canvas.drawOval(
+                Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                    xOffset + flippingWidth, yOffset + pieceRadius),
+                paint);
+            canvas.drawOval(
+                Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                    xOffset + flippingWidth, yOffset + pieceRadius),
+                highlightPaint);
+          }
         } else {
           Paint paint =
               squareState == SquareState.black ? blackPaint : whitePaint;
