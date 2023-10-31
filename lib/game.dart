@@ -44,10 +44,6 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Othello"),
-      ),
       body: SafeArea(
         // Stack of UI with Progress on top
         child: Stack(children: [
@@ -70,7 +66,7 @@ class _GameState extends State<Game> {
                         'Black = ${situation.blackCount}',
                         style: const TextStyle(
                           color: Colors.grey,
-                          fontSize: 23,
+                          fontSize: 20,
                         ),
                       ),
                     ),
@@ -86,7 +82,7 @@ class _GameState extends State<Game> {
                         'White = ${situation.whiteCount}',
                         style: const TextStyle(
                           color: Colors.grey,
-                          fontSize: 23,
+                          fontSize: 20,
                         ),
                       ),
                     ),
@@ -109,7 +105,7 @@ class _GameState extends State<Game> {
                     situation.whitesTurn ? "White's turn" : "Black's Turn",
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 30,
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -122,19 +118,19 @@ class _GameState extends State<Game> {
                         onPressed: previousSituations.isEmpty ? null : undo,
                         child: const Column(children: [
                           Icon(Icons.undo),
-                          Text("(U)ndo"),
+                          Text("Undo"),
                         ])),
                     ElevatedButton(
                         onPressed: showLegalMoves,
                         child: const Column(children: [
                           Icon(Icons.location_on),
-                          Text("(L)egal Moves (F1)"),
+                          Text("Moves"),
                         ])),
                     ElevatedButton(
                         onPressed: newGame,
                         child: const Column(children: [
                           Icon(Icons.restart_alt),
-                          Text("(N)ew Game"),
+                          Text("New"),
                         ])),
                   ],
                 ),
