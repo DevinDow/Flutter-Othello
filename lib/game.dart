@@ -47,7 +47,12 @@ class _GameState extends State<Game> {
       body: SafeArea(
         // Stack of UI with Progress on top
         child: Stack(children: [
-          Center(
+          Container(
+            padding: const EdgeInsets.all(3),
+            decoration: const BoxDecoration(
+              color: Colors.grey,
+            ),
+            child: Center(
             child: Column(
               children: <Widget>[
                 // Score
@@ -55,7 +60,7 @@ class _GameState extends State<Game> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(3),
+                        margin: const EdgeInsets.fromLTRB(0, 0, 3, 3),
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       decoration: BoxDecoration(
                         color: Colors.black,
@@ -71,7 +76,7 @@ class _GameState extends State<Game> {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.all(3),
+                        margin: const EdgeInsets.fromLTRB(3, 0, 0, 3),
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -136,6 +141,7 @@ class _GameState extends State<Game> {
                 ),
               ],
             ),
+          ),
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
