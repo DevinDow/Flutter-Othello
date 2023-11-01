@@ -61,28 +61,25 @@ class _GameState extends State<Game> {
             child: OrientationBuilder(builder: (context, orientation) {
               // Portrait mode
               if (orientation == Orientation.portrait) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Score
-                      Score(situation: situation),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Score
+                    Score(situation: situation),
 
-                      // Turn
-                      Turn(situation: situation),
+                    // Turn
+                    Turn(situation: situation),
 
-                      // Board
-                      Board(
-                          situation: situation, makeMoveCallback: makeUserMove),
+                    // Board
+                    Board(situation: situation, makeMoveCallback: makeUserMove),
 
-                      // Buttons
-                      Buttons(
-                          hasUndos: previousSituations.isNotEmpty,
-                          undoCallback: undo,
-                          showLegalMovesCallback: showLegalMoves,
-                          newGameCallback: newGame),
-                    ],
-                  ),
+                    // Buttons
+                    Buttons(
+                        hasUndos: previousSituations.isNotEmpty,
+                        undoCallback: undo,
+                        showLegalMovesCallback: showLegalMoves,
+                        newGameCallback: newGame),
+                  ],
                 );
               } else
 
