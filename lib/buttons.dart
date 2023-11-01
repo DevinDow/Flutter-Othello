@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class Buttons extends StatelessWidget {
   final bool hasUndos;
-  final Function undoCallback;
-  final Function showLegalMovesCallback;
-  final Function newGameCallback;
+  final VoidCallback? undoCallback;
+  final VoidCallback? showLegalMovesCallback;
+  final VoidCallback? newGameCallback;
 
   const Buttons({
     super.key,
@@ -20,19 +20,19 @@ class Buttons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ElevatedButton(
-            onPressed:  ? null : undo,
+            onPressed: hasUndos ? undoCallback : null,
             child: const Column(children: [
               Icon(Icons.undo),
               Text("Undo"),
             ])),
         ElevatedButton(
-            onPressed: showLegalMoves,
+            onPressed: showLegalMovesCallback,
             child: const Column(children: [
               Icon(Icons.location_on),
               Text("Moves"),
             ])),
         ElevatedButton(
-            onPressed: newGame,
+            onPressed: newGameCallback,
             child: const Column(children: [
               Icon(Icons.restart_alt),
               Text("New"),
