@@ -96,7 +96,9 @@ class _GameState extends State<Game> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         // Board
-                        Board(situation: situation, makeMoveCallback: makeMove),
+                        Board(
+                            situation: situation,
+                            makeMoveCallback: makeUserMove),
 
                         // UI Column
                         Container(
