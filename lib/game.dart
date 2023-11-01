@@ -6,6 +6,7 @@ import 'package:othello/coord.dart';
 import 'package:othello/board.dart';
 import 'package:othello/score.dart';
 import 'package:othello/turn.dart';
+import 'package:othello/buttons.dart';
 import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
 import 'package:othello/alert.dart';
@@ -67,29 +68,11 @@ class _GameState extends State<Game> {
                   Turn(situation: situation),
 
                   // Buttons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: previousSituations.isEmpty ? null : undo,
-                          child: const Column(children: [
-                            Icon(Icons.undo),
-                            Text("Undo"),
-                          ])),
-                      ElevatedButton(
-                          onPressed: showLegalMoves,
-                          child: const Column(children: [
-                            Icon(Icons.location_on),
-                            Text("Moves"),
-                          ])),
-                      ElevatedButton(
-                          onPressed: newGame,
-                          child: const Column(children: [
-                            Icon(Icons.restart_alt),
-                            Text("New"),
-                          ])),
-                    ],
-                  ),
+                  Buttons(
+                      hasUndos: previousSituations.isNotEmpty,
+                      undoCallback: undo,
+                      showLegalMovesCallback: showLegalMoves,
+                      newGameCallback: newGame),
                 ],
               ),
             ),
@@ -185,8 +168,6 @@ class _GameState extends State<Game> {
       }
     });
   }
-
-  void opponent() {}
 
   void newGame() {
     setState(() {
