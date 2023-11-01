@@ -36,6 +36,7 @@ class _GameState extends State<Game> {
   void initGame() {
     situation = Situation();
     previousSituations = List.empty(growable: true);
+    situation.findLegalMoves();
   }
 
   /// for handling Keyboard
@@ -149,7 +150,6 @@ class _GameState extends State<Game> {
     if (!situation.isLegalMove(coord)) {
       dev.log("Not a Legal Move!", name: "Board");
       Alert(context, "Not a Legal Move!", "Try again");
-      showLegalMoves();
       return;
     }
 
@@ -199,6 +199,10 @@ class _GameState extends State<Game> {
     if (computer.amIWhite ^ !situation.whitesTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
       Future.delayed(const Duration(seconds: 1), makeComputerMove);
+    } else {
+      setState(() {
+        situation.findLegalMoves();
+      });
     }
   }
 
@@ -231,10 +235,6 @@ class _GameState extends State<Game> {
       final key = event.logicalKey.keyLabel;
 
       switch (key) {
-        case "F1":
-        case "L":
-          showLegalMoves();
-          return true;
         case "Backspace":
         case "U":
           undo();

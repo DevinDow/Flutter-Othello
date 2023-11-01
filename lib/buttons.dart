@@ -28,12 +28,6 @@ class Buttons extends StatelessWidget {
                 Text("Undo"),
               ])),
           ElevatedButton(
-              onPressed: showLegalMovesCallback,
-              child: const Column(children: [
-                Icon(Icons.location_on),
-                Text("Moves"),
-              ])),
-          ElevatedButton(
               onPressed: newGameCallback,
               child: const Column(children: [
                 Icon(Icons.restart_alt),
