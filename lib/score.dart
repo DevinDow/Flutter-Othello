@@ -12,6 +12,10 @@ class Score extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // Score:
+        const Text("Score: "),
+
+        // Black Score
         Container(
           margin: const EdgeInsets.fromLTRB(0, 0, 3, 3),
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
@@ -21,13 +25,18 @@ class Score extends StatelessWidget {
             border: Border.all(),
           ),
           child: Text(
-            'Black = ${situation.blackCount}',
+            '${situation.blackCount}',
             style: const TextStyle(
               color: Colors.grey,
               fontSize: 20,
             ),
           ),
         ),
+
+        // -
+        const Text(" - "),
+
+        // White Score
         Container(
           margin: const EdgeInsets.fromLTRB(3, 0, 0, 3),
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
@@ -37,7 +46,7 @@ class Score extends StatelessWidget {
             border: Border.all(),
           ),
           child: Text(
-            'White = ${situation.whiteCount}',
+            '${situation.whiteCount}',
             style: const TextStyle(
               color: Colors.grey,
               fontSize: 20,
