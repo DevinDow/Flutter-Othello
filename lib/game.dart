@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/coord.dart';
 import 'package:othello/board.dart';
+import 'package:othello/custom_orientation_builder.dart';
 import 'package:othello/score.dart';
 import 'package:othello/turn.dart';
 import 'package:othello/buttons.dart';
@@ -11,7 +12,6 @@ import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
 import 'package:othello/alert.dart';
 
-import 'dart:math' as math;
 import 'dart:developer' as dev;
 
 class Game extends StatefulWidget {
@@ -58,66 +58,71 @@ class _GameState extends State<Game> {
               color: Colors.grey,
             ),
             // Portrait vs Landscape
-            child: OrientationBuilder(builder: (context, orientation) {
-              // Portrait mode
-              if (orientation == Orientation.portrait) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Score
-                    Score(situation: situation),
+            child: CustomOrientationBuilder(
+                uiWidth: 200,
+                uiHeight: 50,
+                builder: (context, orientation) {
+                  // Portrait mode
+                  if (orientation == Orientation.portrait) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        // Score
+                        Score(situation: situation),
 
-                    // Turn
-                    Turn(situation: situation),
+                        // Turn
+                        Turn(situation: situation),
 
-                    // Board
-                    Board(situation: situation, makeMoveCallback: makeUserMove),
+                        // Board
+                        Board(
+                            situation: situation,
+                            makeMoveCallback: makeUserMove),
 
-                    // Buttons
-                    Buttons(
-                        hasUndos: previousSituations.isNotEmpty,
-                        undoCallback: undo,
-                        showLegalMovesCallback: showLegalMoves,
-                        newGameCallback: newGame),
-                  ],
-                );
-              } else
+                        // Buttons
+                        Buttons(
+                            hasUndos: previousSituations.isNotEmpty,
+                            undoCallback: undo,
+                            showLegalMovesCallback: showLegalMoves,
+                            newGameCallback: newGame),
+                      ],
+                    );
+                  } else
 
-              // Landscape mode
-              {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // Board
-                    Board(situation: situation, makeMoveCallback: makeMove),
+                  // Landscape mode
+                  {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        // Board
+                        Board(situation: situation, makeMoveCallback: makeMove),
 
-                    // UI
-                    Container(
-                      margin: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          // Score
-                          Score(situation: situation),
+                        // UI
+                        Container(
+                          margin: const EdgeInsets.all(12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              // Score
+                              Score(situation: situation),
 
-                          // Turn
-                          Turn(situation: situation),
+                              // Turn
+                              Turn(situation: situation),
 
-                          const Spacer(),
+                              const Spacer(),
 
-                          // Buttons
-                          Buttons(
-                              hasUndos: previousSituations.isNotEmpty,
-                              undoCallback: undo,
-                              showLegalMovesCallback: showLegalMoves,
-                              newGameCallback: newGame),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }
-            }),
+                              // Buttons
+                              Buttons(
+                                  hasUndos: previousSituations.isNotEmpty,
+                                  undoCallback: undo,
+                                  showLegalMovesCallback: showLegalMoves,
+                                  newGameCallback: newGame),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }),
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
