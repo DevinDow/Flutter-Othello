@@ -1,5 +1,7 @@
 TODO
 ----
+- CheckBox for "Always Show Legal Moves"
+
 CustomOrientationBuilder
 - pass real uiWidth & uiHeight
 
