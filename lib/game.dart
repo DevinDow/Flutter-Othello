@@ -64,6 +64,7 @@ class _GameState extends State<Game> {
                 builder: (context, orientation) {
                   // Portrait mode
                   if (orientation == Orientation.portrait) {
+                    // Column of Board + UI
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -90,13 +91,14 @@ class _GameState extends State<Game> {
 
                   // Landscape mode
                   {
+                    // Row of Board + UI
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         // Board
                         Board(situation: situation, makeMoveCallback: makeMove),
 
-                        // UI
+                        // UI Column
                         Container(
                           margin: const EdgeInsets.all(12),
                           child: Column(
