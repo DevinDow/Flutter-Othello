@@ -16,28 +16,31 @@ class Buttons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-            onPressed: hasUndos ? undoCallback : null,
-            child: const Column(children: [
-              Icon(Icons.undo),
-              Text("Undo"),
-            ])),
-        ElevatedButton(
-            onPressed: showLegalMovesCallback,
-            child: const Column(children: [
-              Icon(Icons.location_on),
-              Text("Moves"),
-            ])),
-        ElevatedButton(
-            onPressed: newGameCallback,
-            child: const Column(children: [
-              Icon(Icons.restart_alt),
-              Text("New"),
-            ])),
-      ],
+    return Container(
+      margin: const EdgeInsets.all(5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+              onPressed: hasUndos ? undoCallback : null,
+              child: const Column(children: [
+                Icon(Icons.undo),
+                Text("Undo"),
+              ])),
+          ElevatedButton(
+              onPressed: showLegalMovesCallback,
+              child: const Column(children: [
+                Icon(Icons.location_on),
+                Text("Moves"),
+              ])),
+          ElevatedButton(
+              onPressed: newGameCallback,
+              child: const Column(children: [
+                Icon(Icons.restart_alt),
+                Text("New"),
+              ])),
+        ],
+      ),
     );
   }
 }
