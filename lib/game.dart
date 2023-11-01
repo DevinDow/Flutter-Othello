@@ -63,6 +63,7 @@ class _GameState extends State<Game> {
               if (orientation == Orientation.portrait) {
                 return Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       // Score
                       Score(situation: situation),
@@ -71,18 +72,8 @@ class _GameState extends State<Game> {
                       Turn(situation: situation),
 
                       // Board
-                      // let it Expand as tall as Column allows, then make Width the same so it's a square
-                      Expanded(
-                        child: LayoutBuilder(
-                          builder: (_, constraints) => SizedBox(
-                            // make Width a square based on Expanded's Height
-                            width: constraints.maxHeight,
-                            child: Board(
-                                situation: situation,
-                                makeMoveCallback: makeUserMove),
-                          ),
-                        ),
-                      ),
+                      Board(
+                          situation: situation, makeMoveCallback: makeUserMove),
 
                       // Buttons
                       Buttons(
@@ -101,21 +92,7 @@ class _GameState extends State<Game> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     // Board
-                    // let it Expand as wide as Row allows,
-                    // then make Width & Height the same (square) using the smaller of Flexible's maxWidth & maxHeight
-                    Flexible(
-                      child: LayoutBuilder(
-                        builder: (_, constraints) => SizedBox(
-                          width: math.min(
-                              constraints.maxWidth, constraints.maxHeight),
-                          height: math.min(
-                              constraints.maxWidth, constraints.maxHeight),
-                          child: Board(
-                              situation: situation,
-                              makeMoveCallback: makeUserMove),
-                        ),
-                      ),
-                    ),
+                    Board(situation: situation, makeMoveCallback: makeMove),
 
                     // UI
                     Container(

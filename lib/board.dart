@@ -67,16 +67,26 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
       widget.situation.restartAnimation = false;
     }
 
-    // GestureDetector
-    return GestureDetector(
-      onTapDown: (details) => _onTapDown(details, context),
-      child: AnimatedBuilder(
-        animation: animation,
-        builder: (context, snapshot) {
-          // CustomPaint using BoardPainter
-          return CustomPaint(
-              painter: BoardPainter(widget.situation, animation.value));
-        },
+    // let Board Expand up to as tall/wide as Column/Row allows,
+    // then make Width & Height the same (square) using the smaller of Flexible's maxWidth & maxHeight
+    return Flexible(
+      child: LayoutBuilder(
+        builder: (_, constraints) => SizedBox(
+          width: math.min(constraints.maxWidth, constraints.maxHeight),
+          height: math.min(constraints.maxWidth, constraints.maxHeight),
+          // GestureDetector
+          child: GestureDetector(
+            onTapDown: (details) => _onTapDown(details, context),
+            child: AnimatedBuilder(
+              animation: animation,
+              builder: (context, snapshot) {
+                // CustomPaint using BoardPainter
+                return CustomPaint(
+                    painter: BoardPainter(widget.situation, animation.value));
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
