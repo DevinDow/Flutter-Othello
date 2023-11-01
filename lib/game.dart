@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:othello/board.dart';
-import 'package:othello/coord.dart';
-import 'package:othello/score.dart';
 import 'package:othello/situation.dart';
+import 'package:othello/coord.dart';
+import 'package:othello/board.dart';
+import 'package:othello/score.dart';
+import 'package:othello/turn.dart';
 import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
 import 'package:othello/alert.dart';
@@ -63,22 +64,7 @@ class _GameState extends State<Game> {
                   Board(situation: situation, makeMoveCallback: makeUserMove),
 
                   // Turn
-                  Container(
-                    margin: const EdgeInsets.all(3),
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                    decoration: BoxDecoration(
-                      color: situation.whitesTurn ? Colors.white : Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(),
-                    ),
-                    child: Text(
-                      situation.whitesTurn ? "White's turn" : "Black's Turn",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                  Turn(situation: situation),
 
                   // Buttons
                   Row(
