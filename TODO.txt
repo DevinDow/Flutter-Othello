@@ -1,5 +1,10 @@
 TODO
 ----
+CustomOrientationBuilder
+- pass real uiWidth & uiHeight
+
 ComputerPlayer
-- choose Opponent = DropdownButton
+- Opponent widget
     - port other Levels
+    - DropdownButtons under Score
+    - handle 2 ComputerPlayers
