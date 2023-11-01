@@ -11,6 +11,7 @@ import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
 import 'package:othello/alert.dart';
 
+import 'dart:math' as math;
 import 'dart:developer' as dev;
 
 class Game extends StatefulWidget {
@@ -48,34 +49,101 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        // Stack of UI with Progress on top
+        // Stack of UI with conditional Busy Indicator on top
         child: Stack(children: [
+          // grey padded Container for UI
           Container(
             padding: const EdgeInsets.all(3),
             decoration: const BoxDecoration(
               color: Colors.grey,
             ),
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  // Score
-                  Score(situation: situation),
+            // Portrait vs Landscape
+            child: OrientationBuilder(builder: (context, orientation) {
+              // Portrait mode
+              if (orientation == Orientation.portrait) {
+                return Center(
+                  child: Column(
+                    children: <Widget>[
+                      // Score
+                      Score(situation: situation),
 
-                  // Board
-                  Board(situation: situation, makeMoveCallback: makeUserMove),
+                      // Turn
+                      Turn(situation: situation),
 
-                  // Turn
-                  Turn(situation: situation),
+                      // Board
+                      // let it Expand as tall as Column allows, then make Width the same so it's a square
+                      Expanded(
+                        child: LayoutBuilder(
+                          builder: (_, constraints) => SizedBox(
+                            // make Width a square based on Expanded's Height
+                            width: constraints.maxHeight,
+                            child: Board(
+                                situation: situation,
+                                makeMoveCallback: makeUserMove),
+                          ),
+                        ),
+                      ),
 
-                  // Buttons
-                  Buttons(
-                      hasUndos: previousSituations.isNotEmpty,
-                      undoCallback: undo,
-                      showLegalMovesCallback: showLegalMoves,
-                      newGameCallback: newGame),
-                ],
-              ),
-            ),
+                      // Buttons
+                      Buttons(
+                          hasUndos: previousSituations.isNotEmpty,
+                          undoCallback: undo,
+                          showLegalMovesCallback: showLegalMoves,
+                          newGameCallback: newGame),
+                    ],
+                  ),
+                );
+              } else
+
+              // Landscape mode
+              {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Board
+                    // let it Expand as wide as Row allows,
+                    // then make Width & Height the same (square) using the smaller of Flexible's maxWidth & maxHeight
+                    Flexible(
+                      child: LayoutBuilder(
+                        builder: (_, constraints) => SizedBox(
+                          width: math.min(
+                              constraints.maxWidth, constraints.maxHeight),
+                          height: math.min(
+                              constraints.maxWidth, constraints.maxHeight),
+                          child: Board(
+                              situation: situation,
+                              makeMoveCallback: makeUserMove),
+                        ),
+                      ),
+                    ),
+
+                    // UI
+                    Container(
+                      margin: const EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          // Score
+                          Score(situation: situation),
+
+                          // Turn
+                          Turn(situation: situation),
+
+                          const Spacer(),
+
+                          // Buttons
+                          Buttons(
+                              hasUndos: previousSituations.isNotEmpty,
+                              undoCallback: undo,
+                              showLegalMovesCallback: showLegalMoves,
+                              newGameCallback: newGame),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+            }),
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
