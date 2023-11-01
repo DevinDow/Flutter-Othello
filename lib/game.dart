@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:othello/board.dart';
 import 'package:othello/coord.dart';
+import 'package:othello/score.dart';
 import 'package:othello/situation.dart';
 import 'package:othello/ComputerPlayer/computer_player.dart';
 import 'package:othello/ComputerPlayer/computer_player_ultimate.dart';
@@ -53,95 +54,59 @@ class _GameState extends State<Game> {
               color: Colors.grey,
             ),
             child: Center(
-            child: Column(
-              children: <Widget>[
-                // Score
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(0, 0, 3, 3),
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(),
-                      ),
-                      child: Text(
-                        'Black = ${situation.blackCount}',
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(3, 0, 0, 3),
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(),
-                      ),
-                      child: Text(
-                        'White = ${situation.whiteCount}',
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: <Widget>[
+                  // Score
+                  Score(situation: situation),
 
-                // Board
-                Board(situation: situation, makeMoveCallback: makeUserMove),
+                  // Board
+                  Board(situation: situation, makeMoveCallback: makeUserMove),
 
-                // Turn
-                Container(
-                  margin: const EdgeInsets.all(3),
-                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                  decoration: BoxDecoration(
-                    color: situation.whitesTurn ? Colors.white : Colors.black,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(),
-                  ),
-                  child: Text(
-                    situation.whitesTurn ? "White's turn" : "Black's Turn",
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
+                  // Turn
+                  Container(
+                    margin: const EdgeInsets.all(3),
+                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    decoration: BoxDecoration(
+                      color: situation.whitesTurn ? Colors.white : Colors.black,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(),
+                    ),
+                    child: Text(
+                      situation.whitesTurn ? "White's turn" : "Black's Turn",
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
 
-                // Buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                        onPressed: previousSituations.isEmpty ? null : undo,
-                        child: const Column(children: [
-                          Icon(Icons.undo),
-                          Text("Undo"),
-                        ])),
-                    ElevatedButton(
-                        onPressed: showLegalMoves,
-                        child: const Column(children: [
-                          Icon(Icons.location_on),
-                          Text("Moves"),
-                        ])),
-                    ElevatedButton(
-                        onPressed: newGame,
-                        child: const Column(children: [
-                          Icon(Icons.restart_alt),
-                          Text("New"),
-                        ])),
-                  ],
-                ),
-              ],
+                  // Buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: previousSituations.isEmpty ? null : undo,
+                          child: const Column(children: [
+                            Icon(Icons.undo),
+                            Text("Undo"),
+                          ])),
+                      ElevatedButton(
+                          onPressed: showLegalMoves,
+                          child: const Column(children: [
+                            Icon(Icons.location_on),
+                            Text("Moves"),
+                          ])),
+                      ElevatedButton(
+                          onPressed: newGame,
+                          child: const Column(children: [
+                            Icon(Icons.restart_alt),
+                            Text("New"),
+                          ])),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
