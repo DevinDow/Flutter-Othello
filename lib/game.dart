@@ -48,6 +48,7 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    // build each Widget
     Board boardWidget =
         Board(situation: situation, makeMoveCallback: makeUserMove);
     Turn turnWidget = Turn(situation: situation);
@@ -58,6 +59,7 @@ class _GameState extends State<Game> {
         showLegalMovesCallback: showLegalMoves,
         newGameCallback: newGame);
 
+    // layout the Widgets in Portrait or Lanscape layout
     return Scaffold(
       body: SafeArea(
         // Stack of UI with conditional Busy Indicator on top
@@ -75,7 +77,7 @@ class _GameState extends State<Game> {
                 builder: (context, orientation) {
                   // Portrait mode
                   if (orientation == Orientation.portrait) {
-                    // Column of Board + UI
+                    // Column of UI & Board
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -89,7 +91,7 @@ class _GameState extends State<Game> {
 
                   // Landscape mode
                   {
-                    // Row of Board + UI Column
+                    // Row of Board / UI Column
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
