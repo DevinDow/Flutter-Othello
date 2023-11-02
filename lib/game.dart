@@ -48,6 +48,16 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    Board boardWidget =
+        Board(situation: situation, makeMoveCallback: makeUserMove);
+    Turn turnWidget = Turn(situation: situation);
+    Score scoreWidget = Score(situation: situation);
+    Buttons buttonsWidget = Buttons(
+        hasUndos: previousSituations.isNotEmpty,
+        undoCallback: undo,
+        showLegalMovesCallback: showLegalMoves,
+        newGameCallback: newGame);
+
     return Scaffold(
       body: SafeArea(
         // Stack of UI with conditional Busy Indicator on top
@@ -69,37 +79,21 @@ class _GameState extends State<Game> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        // Turn
-                        Turn(situation: situation),
-
-                        // Score
-                        Score(situation: situation),
-
-                        // Board
-                        Board(
-                            situation: situation,
-                            makeMoveCallback: makeUserMove),
-
-                        // Buttons
-                        Buttons(
-                            hasUndos: previousSituations.isNotEmpty,
-                            undoCallback: undo,
-                            showLegalMovesCallback: showLegalMoves,
-                            newGameCallback: newGame),
+                        turnWidget,
+                        scoreWidget,
+                        boardWidget,
+                        buttonsWidget,
                       ],
                     );
                   } else
 
                   // Landscape mode
                   {
-                    // Row of Board + UI
+                    // Row of Board + UI Column
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        // Board
-                        Board(
-                            situation: situation,
-                            makeMoveCallback: makeUserMove),
+                        boardWidget,
 
                         // UI Column
                         Container(
@@ -107,20 +101,10 @@ class _GameState extends State<Game> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              // Turn
-                              Turn(situation: situation),
-
-                              // Score
-                              Score(situation: situation),
-
+                              turnWidget,
+                              scoreWidget,
                               const Spacer(),
-
-                              // Buttons
-                              Buttons(
-                                  hasUndos: previousSituations.isNotEmpty,
-                                  undoCallback: undo,
-                                  showLegalMovesCallback: showLegalMoves,
-                                  newGameCallback: newGame),
+                              buttonsWidget,
                             ],
                           ),
                         ),
