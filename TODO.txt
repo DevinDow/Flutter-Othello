@@ -1,6 +1,8 @@
 TODO
 ----
-- CheckBox for "Always Show Legal Moves"
+BUG: sometimes flippedPieces are drawn in their old color.
+- Board.Animation.value becomes 0 when changing Portrait/Landscape
+    - can move animation to Game
 
 CustomOrientationBuilder
 - pass real uiWidth & uiHeight
