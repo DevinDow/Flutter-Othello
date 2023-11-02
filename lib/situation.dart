@@ -23,7 +23,7 @@ class Situation {
   bool whitesTurn = false;
   bool skippedTurn = false;
   bool endOfGame = false;
-  bool restartAnimation = true;
+  bool restartAnimation = false;
 
   // Constructor
   Situation({this.whitesTurn = false, setInitialPieces = true}) {
