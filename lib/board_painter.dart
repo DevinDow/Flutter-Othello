@@ -61,8 +61,8 @@ class BoardPainter extends CustomPainter {
 
     // flippingWidth of oval determined by flipAngle
     double flippingWidth = pieceRadius * math.cos(flipAngle).abs();
-    bool useOldColor = flipAngle >
-            0 && // avoid drawing already flipped Pieces in Old Color just because flipAngle is reset to 0
+    bool useOldColor = !situation
+            .animationFinished && // avoid drawing already flipped Pieces in Old Color just because flipAngle is reset to 0
         flipAngle < math.pi / 2; // until it's flipped half way to new Color
 
     // loop all Squares

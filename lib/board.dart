@@ -42,6 +42,7 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
       // called every time that the status changes
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
+          widget.situation.animationFinished = true;
           widget.flippingFinishedCallback();
         }
       });
@@ -61,10 +62,11 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
 
     // start the Animation
     if (widget.situation.coordsFlipped.isNotEmpty &&
-        widget.situation.restartAnimation) {
+        widget.situation.startAnimation) {
       controller.reset();
       controller.forward();
-      widget.situation.restartAnimation = false;
+      widget.situation.startAnimation = false;
+      widget.situation.animationFinished = false;
     }
 
     // let Board Expand up to as tall/wide as Column/Row allows,

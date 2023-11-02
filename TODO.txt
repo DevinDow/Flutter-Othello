@@ -1,7 +1,5 @@
 TODO
 ----
-HACK: flipAngle gets reset to 0 on change Portrait/Landscape.  Hack has a drawing artifact.
-
 CustomOrientationBuilder
 - pass real uiWidth & uiHeight
 
