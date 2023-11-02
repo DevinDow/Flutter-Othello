@@ -50,7 +50,7 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     // build each Widget
     Board boardWidget =
-        Board(situation: situation, makeMoveCallback: makeUserMove);
+        Board(situation: situation, coordClickedCallback: coordClicked);
     Turn turnWidget = Turn(situation: situation);
     Score scoreWidget = Score(situation: situation);
     Buttons buttonsWidget = Buttons(
@@ -130,8 +130,10 @@ class _GameState extends State<Game> {
     );
   }
 
-  /// adds to previousSituations before calling makeMove()
-  void makeUserMove(Coord coord) {
+  /// - checks isLegalMove
+  /// - adds to previousSituations
+  /// - calls makeMove()
+  void coordClicked(Coord coord) {
     // not a Legal Move
     if (!situation.isLegalMove(coord)) {
       dev.log("Not a Legal Move!", name: "Board");

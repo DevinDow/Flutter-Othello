@@ -10,11 +10,11 @@ import 'dart:developer' as dev;
 
 class Board extends StatefulWidget {
   final Situation situation;
-  final Function makeMoveCallback;
+  final Function coordClickedCallback;
   static bool logBoardBuildSituation = false;
 
   const Board(
-      {super.key, required this.situation, required this.makeMoveCallback});
+      {super.key, required this.situation, required this.coordClickedCallback});
 
   @override
   State<Board> createState() => _BoardState();
@@ -104,6 +104,6 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     dev.log("Tapped at coord $coord", name: "Board");
 
     // make Move
-    widget.makeMoveCallback(coord);
+    widget.coordClickedCallback(coord);
   }
 }
