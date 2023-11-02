@@ -4,6 +4,9 @@ import 'package:othello/situation.dart';
 
 class Score extends StatelessWidget {
   final Situation situation;
+  final TextStyle _textStyle = const TextStyle(fontSize: 20);
+  final TextStyle _textStyleGrey =
+      const TextStyle(fontSize: 20, color: Colors.grey);
 
   const Score({super.key, required this.situation});
 
@@ -13,7 +16,7 @@ class Score extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Score:
-        const Text("Score: "),
+        Text("Score: ", style: _textStyle),
 
         // Black Score
         Container(
@@ -26,15 +29,12 @@ class Score extends StatelessWidget {
           ),
           child: Text(
             '${situation.blackCount}',
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 20,
-            ),
+            style: _textStyleGrey,
           ),
         ),
 
         // -
-        const Text(" - "),
+        Text(" - ", style: _textStyle),
 
         // White Score
         Container(
@@ -45,13 +45,7 @@ class Score extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(),
           ),
-          child: Text(
-            '${situation.whiteCount}',
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 20,
-            ),
-          ),
+          child: Text('${situation.whiteCount}', style: _textStyleGrey),
         ),
       ],
     );

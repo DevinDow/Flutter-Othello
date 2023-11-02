@@ -69,11 +69,11 @@ class _GameState extends State<Game> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        // Score
-                        Score(situation: situation),
-
                         // Turn
                         Turn(situation: situation),
+
+                        // Score
+                        Score(situation: situation),
 
                         // Board
                         Board(
@@ -107,11 +107,11 @@ class _GameState extends State<Game> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              // Score
-                              Score(situation: situation),
-
                               // Turn
                               Turn(situation: situation),
+
+                              // Score
+                              Score(situation: situation),
 
                               const Spacer(),
 
