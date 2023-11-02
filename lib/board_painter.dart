@@ -52,7 +52,11 @@ class BoardPainter extends CustomPainter {
       ..color = Colors.white;
     final highlightPaint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.0
+      ..strokeWidth = pieceRadius / 16
+      ..color = Colors.red;
+    final highlightPaintThick = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = pieceRadius / 8
       ..color = Colors.red;
 
     // flippingWidth of oval determined by flipAngle
@@ -64,6 +68,8 @@ class BoardPainter extends CustomPainter {
     for (int y = 0; y < 8; y++) {
       for (int x = 0; x < 8; x++) {
         SquareState squareState = situation.squares[x][y];
+
+        // skip Empty Squares
         if (squareState == SquareState.empty) {
           continue;
         }
@@ -71,29 +77,35 @@ class BoardPainter extends CustomPainter {
         double xOffset = x * squareSize + squareSize / 2;
         double yOffset = y * squareSize + squareSize / 2;
 
+        // draw Flipping Pieces
         Coord coord = Coord(x + 1, y + 1);
         if (situation.coordsFlipped.contains(coord)) {
-          if (flippingWidth > pieceRadius / 10) {
-            // skip zero-width Ovals
-            Paint paint = (squareState == SquareState.black) ^ useOldColor
-                ? blackPaint
-                : whitePaint;
-            canvas.drawOval(
-                Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
-                    xOffset + flippingWidth, yOffset + pieceRadius),
-                paint);
-            canvas.drawOval(
-                Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
-                    xOffset + flippingWidth, yOffset + pieceRadius),
-                highlightPaint);
+          if (flippingWidth < pieceRadius / 10) {
+            continue; // skip zero-width Ovals
           }
-        } else {
+          Paint paint = (squareState == SquareState.black) ^ useOldColor
+              ? blackPaint
+              : whitePaint;
+          canvas.drawOval(
+              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                  xOffset + flippingWidth, yOffset + pieceRadius),
+              paint);
+          canvas.drawOval(
+              Rect.fromLTRB(xOffset - flippingWidth, yOffset - pieceRadius,
+                  xOffset + flippingWidth, yOffset + pieceRadius),
+              highlightPaint);
+        }
+
+        // draw Black & White Pieces
+        else {
           Paint paint =
               squareState == SquareState.black ? blackPaint : whitePaint;
           canvas.drawCircle(Offset(xOffset, yOffset), pieceRadius, paint);
+
+          // highlight placedPiece
           if (coord == situation.placedPiece) {
             canvas.drawCircle(
-                Offset(xOffset, yOffset), pieceRadius, highlightPaint);
+                Offset(xOffset, yOffset), pieceRadius, highlightPaintThick);
           }
         }
       }
