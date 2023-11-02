@@ -1,11 +1,5 @@
 TODO
 ----
-ANIMATION BUG: sometimes flippedPieces are drawn in their old color.
-- Board.Animation.value becomes 0 when changing Portrait/Landscape
-    - could just clear flippedPieces on changing Portrait/Landscape
-    - BoardState.initState() gets called when changing Portrait/Landscape
-    - rewrite using https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html?
-    - can move animation to Game?
 - show Legal Moves only after Animation Completed?
 
 CustomOrientationBuilder
