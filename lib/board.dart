@@ -11,10 +11,14 @@ import 'dart:developer' as dev;
 class Board extends StatefulWidget {
   final Situation situation;
   final Function coordClickedCallback;
+  final Function flippingFinishedCallback;
   static bool logBoardBuildSituation = false;
 
   const Board(
-      {super.key, required this.situation, required this.coordClickedCallback});
+      {super.key,
+      required this.situation,
+      required this.coordClickedCallback,
+      required this.flippingFinishedCallback});
 
   @override
   State<Board> createState() => _BoardState();
@@ -34,7 +38,13 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
     );
 
     Tween<double> rotationTween = Tween(begin: 0, end: math.pi);
-    animation = rotationTween.animate(controller);
+    animation = rotationTween.animate(controller)
+      // called every time that the status changes
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          widget.flippingFinishedCallback();
+        }
+      });
   }
 
   @override

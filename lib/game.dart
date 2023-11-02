@@ -49,8 +49,11 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     // build each Widget
-    Board boardWidget =
-        Board(situation: situation, coordClickedCallback: coordClicked);
+    Board boardWidget = Board(
+      situation: situation,
+      coordClickedCallback: coordClicked,
+      flippingFinishedCallback: flippingFinished,
+    );
     Turn turnWidget = Turn(situation: situation);
     Score scoreWidget = Score(situation: situation);
     Buttons buttonsWidget = Buttons(
@@ -187,11 +190,13 @@ class _GameState extends State<Game> {
     if (computer.amIWhite ^ !situation.whitesTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
       Future.delayed(const Duration(seconds: 1), makeComputerMove);
-    } else {
-      setState(() {
-        situation.findLegalMoves();
-      });
     }
+  }
+
+  void flippingFinished() {
+    setState(() {
+      situation.findLegalMoves();
+    });
   }
 
   void undo() {
