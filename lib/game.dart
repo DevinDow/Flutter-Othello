@@ -28,6 +28,9 @@ class _GameState extends State<Game> {
   ComputerPlayer computer = ComputerPlayerUltimate(true,
       depthForEveryMove: 6, depthForOnlyBestMove: 11);
 
+  bool get isComputersTurn => computer.amIWhite ^ !situation.whitesTurn;
+  bool get isHumansTurn => !isComputersTurn;
+
   _GameState() {
     initGame();
   }
@@ -120,7 +123,7 @@ class _GameState extends State<Game> {
           ),
 
           // a Busy Indicator conditionally Stacked on top of UI during Computer's Turn
-          (!situation.endOfGame && (computer.amIWhite ^ !situation.whitesTurn))
+          (!situation.endOfGame && isComputersTurn)
               ? Container(
                   color: Colors.black.withOpacity(0.1),
                   child: const Center(
@@ -187,7 +190,7 @@ class _GameState extends State<Game> {
     });
 
     // if it is now Computer's Turn
-    if (computer.amIWhite ^ !situation.whitesTurn) {
+    if (isComputersTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
       Future.delayed(const Duration(seconds: 1), makeComputerMove);
     }
