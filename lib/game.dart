@@ -62,7 +62,6 @@ class _GameState extends State<Game> {
     Buttons buttonsWidget = Buttons(
         hasUndos: previousSituations.isNotEmpty,
         undoCallback: undo,
-        showLegalMovesCallback: showLegalMoves,
         newGameCallback: newGame);
 
     // layout the Widgets in Portrait or Lanscape layout
@@ -206,16 +205,6 @@ class _GameState extends State<Game> {
     setState(() {
       if (previousSituations.isNotEmpty) {
         situation = previousSituations.removeLast();
-      }
-    });
-  }
-
-  void showLegalMoves() {
-    setState(() {
-      if (situation.legalMoves.isEmpty) {
-        situation.findLegalMoves();
-      } else {
-        situation.legalMoves = List.empty();
       }
     });
   }

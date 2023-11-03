@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class Buttons extends StatelessWidget {
   final bool hasUndos;
   final VoidCallback? undoCallback;
-  final VoidCallback? showLegalMovesCallback;
   final VoidCallback? newGameCallback;
 
   const Buttons({
     super.key,
     required this.hasUndos,
     required this.undoCallback,
-    required this.showLegalMovesCallback,
     required this.newGameCallback,
   });
 
