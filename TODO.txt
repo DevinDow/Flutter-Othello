@@ -1,5 +1,11 @@
 TODO
 ----
+On DevinDow.com using chromebook, animation is interrupted by algorithm thinking.
+- should I revert to delaying thinking?
+
+What classes, enums, fields, & methods should be _privateToThisDartFile?
+- model after library
+
 CustomOrientationBuilder
 - pass real uiWidth & uiHeight
 
