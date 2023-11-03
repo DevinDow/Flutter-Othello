@@ -157,13 +157,17 @@ class _GameState extends State<Game> {
 
   /// - compute the next Move for ComputerPlayer
   /// - cache _computerChoice
-  /// - execute _computerChoice if flipping has finished
-  /// (otherwise _computerChoice will be executed in flippingFinished)
-  void makeComputerMove() {
+  /// - execute makeComputerMove() if flipping has finished
+  /// (otherwise makeComputerMove() will be executed in flippingFinished())
+  void chooseNextComputerMove() {
     _computerChoice = computer.chooseNextMove(situation);
     if (_computerChoice != null && _hasFlippingFinished) {
-      makeMove(_computerChoice!);
+      Future.delayed(const Duration(seconds: 0), makeComputerMove);
     }
+  }
+
+  void makeComputerMove() {
+    makeMove(_computerChoice!);
   }
 
   /// executes a Move, Alerts for Skipped Turn or End of Game, triggers ComputerPlayer to chooseNextMove()
@@ -201,7 +205,8 @@ class _GameState extends State<Game> {
     // if it is now Computer's Turn
     if (isComputersTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
-      Future.delayed(const Duration(milliseconds: 1200), makeComputerMove);
+      Future.delayed(
+          const Duration(milliseconds: 1200), chooseNextComputerMove);
     }
   }
 
@@ -211,9 +216,10 @@ class _GameState extends State<Game> {
       if (isHumansTurn) {
         situation.findLegalMoves();
       } else // computer's Turn
-      // has computer finished choosing?
+      // execute makeComputerMove() if computer has finished choosing
+      // (otherwise makeComputerMove() will be executed in chooseNextComputerMove())
       if (_computerChoice != null) {
-        makeMove(_computerChoice!); // execute _computerChoice
+        Future.delayed(const Duration(seconds: 0), makeComputerMove);
       }
     });
   }
