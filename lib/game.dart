@@ -31,6 +31,9 @@ class _GameState extends State<Game> {
   bool get isComputersTurn => computer.amIWhite ^ !situation.whitesTurn;
   bool get isHumansTurn => !isComputersTurn;
 
+  late bool _hasFlippingFinished;
+  late Coord? _computerChoice;
+
   _GameState() {
     initGame();
   }
@@ -151,17 +154,22 @@ class _GameState extends State<Game> {
     makeMove(coord);
   }
 
-  /// compute the next Move for ComputerPlayer then execute it
+  /// - compute the next Move for ComputerPlayer
+  /// - cache _computerChoice
+  /// - execute _computerChoice if flipping has finished
+  /// (otherwise _computerChoice will be executed in flippingFinished)
   void makeComputerMove() {
-    Coord? choice = computer.chooseNextMove(situation);
-    if (choice != null) {
-      makeMove(choice);
+    _computerChoice = computer.chooseNextMove(situation);
+    if (_computerChoice != null && _hasFlippingFinished) {
+      makeMove(_computerChoice!);
     }
   }
 
   /// executes a Move, Alerts for Skipped Turn or End of Game, triggers ComputerPlayer to chooseNextMove()
   void makeMove(Coord coord) {
     setState(() {
+      _hasFlippingFinished = false;
+      _computerChoice = null;
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
       dev.log(situation.toString(), name: "Game.makeMove()");
 
@@ -191,14 +199,19 @@ class _GameState extends State<Game> {
     // if it is now Computer's Turn
     if (isComputersTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
-      Future.delayed(const Duration(seconds: 1), makeComputerMove);
+      Future.delayed(const Duration(milliseconds: 0), makeComputerMove);
     }
   }
 
   void flippingFinished() {
     setState(() {
+      _hasFlippingFinished = true;
       if (isHumansTurn) {
-      situation.findLegalMoves();
+        situation.findLegalMoves();
+      } else // computer's Turn
+      // has computer finished choosing?
+      if (_computerChoice != null) {
+        makeMove(_computerChoice!); // execute _computerChoice
       }
     });
   }
