@@ -200,7 +200,7 @@ class _GameState extends State<Game> {
     // if it is now Computer's Turn
     if (isComputersTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
-      Future.delayed(const Duration(milliseconds: 0), makeComputerMove);
+      Future.delayed(const Duration(milliseconds: 1200), makeComputerMove);
     }
   }
 
