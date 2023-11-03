@@ -13,10 +13,11 @@ class BoardPainter extends CustomPainter {
 
   // Fields
   late final Situation situation;
+  final bool showLegalMoves;
   late final double flipAngle;
 
   // Constructor
-  BoardPainter(this.situation, this.flipAngle);
+  BoardPainter(this.situation, this.showLegalMoves, this.flipAngle);
 
   // Overrides
   @override
@@ -113,15 +114,17 @@ class BoardPainter extends CustomPainter {
     }
 
     // draw Legal Moves
-    final legalMovePaint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 0.0
-      ..color = Colors.red;
-    for (Coord coord in situation.legalMoves) {
-      double xOffset = (coord.x - 1) * squareSize + squareSize / 2;
-      double yOffset = (coord.y - 1) * squareSize + squareSize / 2;
-      canvas.drawCircle(
-          Offset(xOffset, yOffset), legalMoveRadius, legalMovePaint);
+    if (showLegalMoves) {
+      final legalMovePaint = Paint()
+        ..style = PaintingStyle.fill
+        ..strokeWidth = 0.0
+        ..color = Colors.red;
+      for (Coord coord in situation.legalMoves) {
+        double xOffset = (coord.x - 1) * squareSize + squareSize / 2;
+        double yOffset = (coord.y - 1) * squareSize + squareSize / 2;
+        canvas.drawCircle(
+            Offset(xOffset, yOffset), legalMoveRadius, legalMovePaint);
+      }
     }
   }
 

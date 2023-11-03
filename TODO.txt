@@ -4,6 +4,7 @@ CustomOrientationBuilder
 - pass real uiWidth & uiHeight
 
 ComputerPlayer
+- try deep thinking depths
 - Opponent widget
     - port other Levels
     - DropdownButtons under Score

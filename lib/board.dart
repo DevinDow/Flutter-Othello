@@ -10,6 +10,7 @@ import 'dart:developer' as dev;
 
 class Board extends StatefulWidget {
   final Situation situation;
+  final bool showLegalMoves;
   final Function coordClickedCallback;
   final Function flippingFinishedCallback;
   static bool logBoardBuildSituation = false;
@@ -17,6 +18,7 @@ class Board extends StatefulWidget {
   const Board(
       {super.key,
       required this.situation,
+      required this.showLegalMoves,
       required this.coordClickedCallback,
       required this.flippingFinishedCallback});
 
@@ -84,7 +86,8 @@ class _BoardState extends State<Board> with SingleTickerProviderStateMixin {
               builder: (context, snapshot) {
                 // CustomPaint using BoardPainter
                 return CustomPaint(
-                    painter: BoardPainter(widget.situation, animation.value));
+                    painter: BoardPainter(widget.situation,
+                        widget.showLegalMoves, animation.value));
               },
             ),
           ),

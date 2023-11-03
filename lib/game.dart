@@ -57,6 +57,7 @@ class _GameState extends State<Game> {
     // build each Widget
     Board boardWidget = Board(
       situation: situation,
+      showLegalMoves: isHumansTurn,
       coordClickedCallback: coordClicked,
       flippingFinishedCallback: flippingFinished,
     );
