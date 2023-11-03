@@ -197,7 +197,9 @@ class _GameState extends State<Game> {
 
   void flippingFinished() {
     setState(() {
+      if (isHumansTurn) {
       situation.findLegalMoves();
+      }
     });
   }
 
