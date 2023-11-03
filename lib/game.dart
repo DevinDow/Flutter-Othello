@@ -188,10 +188,11 @@ class _GameState extends State<Game> {
           message = "Tie $blackCount - $whiteCount";
         }
         Alert(context, "Game Over", message);
+        return;
       }
 
       // Skipped Turn
-      else if (situation.skippedTurn) {
+      if (situation.skippedTurn) {
         dev.log("Skipped Turn", name: "Game.makeMove()");
         Alert(context, "Skipped Turn", "There were no Legal Moves available.");
       }
