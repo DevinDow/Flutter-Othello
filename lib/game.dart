@@ -54,7 +54,7 @@ class _GameState extends State<Game> {
     // build each Widget
     Board boardWidget = Board(
       situation: situation,
-      showLegalMoves: isHumansTurn,
+      drawLegalMoves: isHumansTurn,
       coordClickedCallback: coordClicked,
       flippingFinishedCallback: flippingFinished,
     );
@@ -157,7 +157,9 @@ class _GameState extends State<Game> {
     makeMove(computerChoice!);
   }
 
-  /// executes a Move, Alerts for Skipped Turn or End of Game, triggers ComputerPlayer to chooseNextMove()
+  /// - executes a Move
+  /// - Alerts for End of Game or Skipped Turn
+  /// - triggers ComputerPlayer to chooseNextMove()
   void makeMove(Coord coord) {
     setState(() {
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
@@ -195,6 +197,7 @@ class _GameState extends State<Game> {
     }
   }
 
+  /// show Human's Legal Moves after flipping finishes
   void flippingFinished() {
     if (isHumansTurn) {
       setState(() {

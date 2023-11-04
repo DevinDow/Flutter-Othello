@@ -13,11 +13,11 @@ class BoardPainter extends CustomPainter {
 
   // Fields
   late final Situation situation;
-  final bool showLegalMoves;
+  final bool drawLegalMoves;
   late final double flipAngle;
 
   // Constructor
-  BoardPainter(this.situation, this.showLegalMoves, this.flipAngle);
+  BoardPainter(this.situation, this.drawLegalMoves, this.flipAngle);
 
   // Overrides
   @override
@@ -114,7 +114,7 @@ class BoardPainter extends CustomPainter {
     }
 
     // draw Legal Moves
-    if (showLegalMoves) {
+    if (drawLegalMoves) {
       final legalMovePaint = Paint()
         ..style = PaintingStyle.fill
         ..strokeWidth = 0.0
