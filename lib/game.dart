@@ -31,9 +31,6 @@ class _GameState extends State<Game> {
   bool get isComputersTurn => computer.amIWhite ^ !situation.whitesTurn;
   bool get isHumansTurn => !isComputersTurn;
 
-  late bool _hasFlippingFinished;
-  late Coord? _computerChoice;
-
   _GameState() {
     initGame();
   }
@@ -145,7 +142,7 @@ class _GameState extends State<Game> {
   void coordClicked(Coord coord) {
     // not a Legal Move
     if (!situation.isLegalMove(coord)) {
-      dev.log("Not a Legal Move!", name: "Board");
+      dev.log("Not a Legal Move!", name: "Game");
       Alert(context, "Not a Legal Move!", "Try again");
       return;
     }
@@ -155,73 +152,55 @@ class _GameState extends State<Game> {
     makeMove(coord);
   }
 
-  /// - compute the next Move for ComputerPlayer
-  /// - cache _computerChoice
-  /// - execute makeComputerMove() if flipping has finished
-  /// (otherwise makeComputerMove() will be executed in flippingFinished())
-  void chooseNextComputerMove() {
-    _computerChoice = computer.chooseNextMove(situation);
-    if (_computerChoice != null && _hasFlippingFinished) {
-      Future.delayed(const Duration(seconds: 0), makeComputerMove);
-    }
-  }
-
-  void makeComputerMove() {
-    makeMove(_computerChoice!);
+  void computeMove() {
+    Coord? computerChoice = computer.chooseNextMove(situation);
+    makeMove(computerChoice!);
   }
 
   /// executes a Move, Alerts for Skipped Turn or End of Game, triggers ComputerPlayer to chooseNextMove()
   void makeMove(Coord coord) {
     setState(() {
-      _hasFlippingFinished = false;
-      _computerChoice = null;
       situation.placePieceAndFlipPiecesAndChangeTurns(coord);
-      dev.log(situation.toString(), name: "Game.makeMove()");
-
-      // Game Over
-      if (situation.endOfGame) {
-        dev.log("End of Game", name: "Game.makeMove()");
-        int blackCount = situation.blackCount;
-        int whiteCount = situation.whiteCount;
-        String message;
-        if (blackCount > whiteCount) {
-          message = "Black won $blackCount - $whiteCount";
-        } else if (whiteCount > blackCount) {
-          message = "White won $whiteCount - $blackCount";
-        } else {
-          message = "Tie $blackCount - $whiteCount";
-        }
-        Alert(context, "Game Over", message);
-        return;
-      }
-
-      // Skipped Turn
-      if (situation.skippedTurn) {
-        dev.log("Skipped Turn", name: "Game.makeMove()");
-        Alert(context, "Skipped Turn", "There were no Legal Moves available.");
-      }
     });
+    dev.log(situation.toString(), name: "Game.makeMove()");
+
+    // if Game Over
+    if (situation.endOfGame) {
+      dev.log("End of Game", name: "Game.makeMove()");
+      int blackCount = situation.blackCount;
+      int whiteCount = situation.whiteCount;
+      String message;
+      if (blackCount > whiteCount) {
+        message = "Black won $blackCount - $whiteCount";
+      } else if (whiteCount > blackCount) {
+        message = "White won $whiteCount - $blackCount";
+      } else {
+        message = "Tie $blackCount - $whiteCount";
+      }
+      Alert(context, "Game Over", message);
+      return;
+    }
+
+    // if Skipped Turn
+    if (situation.skippedTurn) {
+      dev.log("Skipped Turn", name: "Game.makeMove()");
+      Alert(context, "Skipped Turn", "There were no Legal Moves available.");
+    }
 
     // if it is now Computer's Turn
     if (isComputersTurn) {
       // let this thread complete while triggering the ComputerPlayer algorithm to choose its next Move
-      Future.delayed(
-          const Duration(milliseconds: 1200), chooseNextComputerMove);
+      // start computing after flipping animation duration, because compute otherwise messes up the animation that only lasts 1 sec
+      Future.delayed(const Duration(milliseconds: 1200), computeMove);
     }
   }
 
   void flippingFinished() {
-    setState(() {
-      _hasFlippingFinished = true;
-      if (isHumansTurn) {
+    if (isHumansTurn) {
+      setState(() {
         situation.findLegalMoves();
-      } else // computer's Turn
-      // execute makeComputerMove() if computer has finished choosing
-      // (otherwise makeComputerMove() will be executed in chooseNextComputerMove())
-      if (_computerChoice != null) {
-        Future.delayed(const Duration(seconds: 0), makeComputerMove);
-      }
-    });
+      });
+    }
   }
 
   void undo() {

@@ -1,8 +1,5 @@
 TODO
 ----
-On DevinDow.com using chromebook, animation is interrupted by algorithm thinking.
-- should I revert to delaying thinking?
-
 What classes, enums, fields, & methods should be _privateToThisDartFile?
 - model after library
 
@@ -19,3 +16,4 @@ ComputerPlayer
 Android
 - handle Navigate Back for Undo?
     - probably won't work in Browser
+- publish to App Store
