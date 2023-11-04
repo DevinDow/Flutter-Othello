@@ -76,10 +76,10 @@ class _GameState extends State<Game> {
             decoration: const BoxDecoration(
               color: Colors.grey,
             ),
-            // Portrait vs Landscape
+            // Portrait vs Landscape for UI Above/Below or on the Side
             child: CustomOrientationBuilder(
                 uiWidth: 200,
-                uiHeight: 50,
+                uiHeight: 100,
                 builder: (context, orientation) {
                   // Portrait mode
                   if (orientation == Orientation.portrait) {
