@@ -1,10 +1,7 @@
 TODO
 ----
-What classes, enums, fields, & methods should be _privateToThisDartFile?
-- model after library
-
 CustomOrientationBuilder
-- pass real uiWidth & uiHeight
+- pass real uiWidth & uiHeight?
 
 ComputerPlayer
 - try deep thinking depths
